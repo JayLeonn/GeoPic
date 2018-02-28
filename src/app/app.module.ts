@@ -11,6 +11,11 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MediaProvider } from '../providers/media/media';
+import {MapPage} from "../pages/map/map";
+import {UploadPage} from "../pages/upload/upload";
+import {ProfilePage} from "../pages/profile/profile";
+import {HttpModule} from "@angular/http";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,11 +23,16 @@ import { MediaProvider } from '../providers/media/media';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    MapPage,
+    ProfilePage,
+    UploadPage,
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule,
+    HttpModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -30,7 +40,10 @@ import { MediaProvider } from '../providers/media/media';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    MapPage,
+    ProfilePage,
+    UploadPage,
   ],
   providers: [
     StatusBar,

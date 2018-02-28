@@ -7,12 +7,50 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>profile-page</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding id="loggedout">
+
+  <ion-list id="login">
+    <h1>Login</h1>
+
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input [(ngModel)]="user.username" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input [(ngModel)]="user.password"  type="password" value=""></ion-input>
+    </ion-item>
+
+
+    <div padding class="">
+      <button class="button" primary block  (click)="login()">Sign In</button>
+    </div>
+  </ion-list>
+
+  <ion-list id="signup">
+    <h1>Sign Up</h1>
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input [(ngModel)]="user.username1" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input [(ngModel)]="user.password1"  type="password" value=""></ion-input>
+    </ion-item>
+
+
+    <div padding class="">
+      <button class="button" primary block  (click)="register()">Sign Up</button>
+    </div>
+  </ion-list>
+
 
 </ion-content>
