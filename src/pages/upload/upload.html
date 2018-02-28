@@ -7,12 +7,34 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>upload-page</ion-title>
+    <ion-title>Upload</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <form id="container">
+
+    <h1>Upload a file</h1>
+
+    <ion-input type="file" id="upfile" class="hidden" (change)="setFile($event)"></ion-input>
+
+    <ion-item id="rounded">
+      <ion-label floating>Title</ion-label>
+      <ion-input [(ngModel)]="media.title" type="text" name="title" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Description</ion-label>
+      <ion-textarea [(ngModel)]="media.description" type="text" name="description"></ion-textarea>
+    </ion-item>
+
+    <div padding class="">
+      <button primary block class="button" id="uploadbutton" type="submit" (click)="startUpload()">Upload</button>
+    </div>
+
+  </form>
 
 </ion-content>
