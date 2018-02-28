@@ -16,6 +16,7 @@ import {UploadPage} from "../pages/upload/upload";
 import {ProfilePage} from "../pages/profile/profile";
 import {HttpModule} from "@angular/http";
 import {HttpClientModule} from "@angular/common/http";
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {HttpClientModule} from "@angular/common/http";
     MapPage,
     ProfilePage,
     UploadPage,
+    MapPage
   ],
   imports: [
     BrowserModule,
@@ -44,12 +46,14 @@ import {HttpClientModule} from "@angular/common/http";
     MapPage,
     ProfilePage,
     UploadPage,
+    MapPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MediaProvider
+    MediaProvider,
+    GoogleMaps
   ]
 })
 export class AppModule {}
