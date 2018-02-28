@@ -17,6 +17,7 @@ import {ProfilePage} from "../pages/profile/profile";
 import {HttpModule} from "@angular/http";
 import {HttpClientModule} from "@angular/common/http";
 import { GoogleMaps } from '@ionic-native/google-maps';
+import {SinglePage} from "../pages/single/single";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     MapPage,
     ProfilePage,
     UploadPage,
-    MapPage
+    SinglePage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +47,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     MapPage,
     ProfilePage,
     UploadPage,
-    MapPage
+    SinglePage
   ],
   providers: [
     StatusBar,
