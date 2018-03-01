@@ -31,8 +31,8 @@
 
       <button ion-button full class="button" primary block (click)="login()" color="button">Log In</button>
 
-      <ion-item *ngIf="loginErrorBoolean">
-        <h6 style="color: black;">There was error logging in, please check your credentials</h6>
+      <ion-item class="errormessage" *ngIf="loginErrorBoolean">
+        <h6>There was an error while logging in,<br> Please check your credentials! </h6>
       </ion-item>
 
     </ion-list>
