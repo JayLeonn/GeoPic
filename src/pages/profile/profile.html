@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <ion-navbar>
     <ion-title>{{title}}</ion-title>
   </ion-navbar>
@@ -13,43 +13,41 @@
 </ion-header>
 
 
-<ion-content padding id="loggedout">
+<ion-content class="ProfilePage" color="dark" padding id="loggedout">
 
   <ion-list id="login">
     <h1>Login</h1>
 
-    <ion-item>
-      <ion-label floating>Username</ion-label>
+    <ion-item class="ProfilePage">
+      <ion-label floating color="light">Username</ion-label>
       <ion-input [(ngModel)]="user.username" type="text" value=""></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label floating>Password</ion-label>
+    <ion-item class="ProfilePage">
+      <ion-label floating color="light">Password</ion-label>
       <ion-input [(ngModel)]="user.password"  type="password" value=""></ion-input>
     </ion-item>
 
+      <button ion-button full class="button" primary block  (click)="login()" color="button">Log In</button>
 
-    <div padding class="">
-      <button class="button" primary block  (click)="login()">Sign In</button>
-    </div>
   </ion-list>
 
   <ion-list id="signup">
     <h1>Sign Up</h1>
-    <ion-item>
-      <ion-label floating>Username</ion-label>
+    <ion-item class="ProfilePage">
+      <ion-label floating color="light">Username</ion-label>
       <ion-input [(ngModel)]="user.username1" type="text" value=""></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label floating>Password</ion-label>
+    <ion-item class="ProfilePage">
+      <ion-label floating color="light">Password</ion-label>
       <ion-input [(ngModel)]="user.password1"  type="password" value=""></ion-input>
     </ion-item>
 
 
-    <div padding class="">
       <button class="button" primary block  (click)="register()">Sign Up</button>
-    </div>
+      <button ion-button full class="button" primary block  (click)="register()" color="button">Sign up</button>
+
   </ion-list>
 
 

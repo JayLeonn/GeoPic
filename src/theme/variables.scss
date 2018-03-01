@@ -1,3 +1,7 @@
+//changed the default font for our app
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+$font-family-base: "Lato", sans-serif !default;
+
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
@@ -38,8 +42,12 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #444449,
+  button:     #2adf7d,
+  icon:       #FFFFFF,
+  black:      #000000,
 );
+$font-family-base: "Lato";
 
 
 // App iOS Variables

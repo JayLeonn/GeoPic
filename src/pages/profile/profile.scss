@@ -1,18 +1,28 @@
 page-profile {
-
+  .ProfilePage{
+    background-color: #444449 !important;
+  }
   .hidden {
     visibility: hidden;
   }
 
   .button {
-    background-color: dodgerblue; /* Blue */
+    //background-color: dodgerblue; /* Blue */
     border: none;
     color: white;
     padding: 15px 32px;
+    margin-top: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+  }
+  ion-item{
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  h1{
+    color: white;
   }
 
 }
