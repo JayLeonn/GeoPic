@@ -19,10 +19,17 @@ import {User} from "../../app/Interfaces/user";
 })
 export class ProfilePage {
 
-  user: User = {
+  loginUser: User = {
     username: '',
     password: '',
     email: ''
+  };
+
+  newUser: User = {
+    username: '',
+    password: '',
+    email: '',
+    full_name: ''
   };
 
   status: string;
@@ -47,7 +54,7 @@ export class ProfilePage {
   }
 
   login() {
-    this.mediaProvider.login(this.user).subscribe(response => {
+    this.mediaProvider.login(this.loginUser).subscribe(response => {
       this.loginErrorBoolean = false;
       this.userInfo = response['user'];
       console.log(this.userInfo);
@@ -61,7 +68,10 @@ export class ProfilePage {
   }
 
   register() {
-    this.mediaProvider.register(this.user);
-  }
+    this.mediaProvider.register(this.newUser).subscribe(response => {
+      this.loginUser = this.newUser;
+      this.login();
+    });
 
+  }
 }

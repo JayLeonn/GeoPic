@@ -21,12 +21,12 @@
 
       <ion-item class="ProfilePage">
         <ion-label floating color="light">Username</ion-label>
-        <ion-input [(ngModel)]="user.username" type="text" value=""></ion-input>
+        <ion-input [(ngModel)]="loginUser.username" type="text" value=""></ion-input>
       </ion-item>
 
       <ion-item class="ProfilePage">
         <ion-label floating color="light">Password</ion-label>
-        <ion-input [(ngModel)]="user.password"  type="password" value=""></ion-input>
+        <ion-input [(ngModel)]="loginUser.password"  type="password" value=""></ion-input>
       </ion-item>
 
       <button ion-button full class="button" primary block (click)="login()" color="button">Log In</button>
@@ -41,12 +41,22 @@
       <h1>Sign Up</h1>
       <ion-item class="ProfilePage">
         <ion-label floating color="light">Username</ion-label>
-        <ion-input [(ngModel)]="user.username1" type="text" value=""></ion-input>
+        <ion-input [(ngModel)]="newUser.username" type="text" value=""></ion-input>
       </ion-item>
 
       <ion-item class="ProfilePage">
         <ion-label floating color="light">Password</ion-label>
-        <ion-input [(ngModel)]="user.password1"  type="password" value=""></ion-input>
+        <ion-input [(ngModel)]="newUser.password"  type="password" value=""></ion-input>
+      </ion-item>
+
+      <ion-item class="ProfilePage">
+        <ion-label floating color="light">Email</ion-label>
+        <ion-input [(ngModel)]="newUser.email"  type="text" value=""></ion-input>
+      </ion-item>
+
+      <ion-item class="ProfilePage">
+        <ion-label floating color="light">Full name</ion-label>
+        <ion-input [(ngModel)]="newUser.full_name"  type="text" value=""></ion-input>
       </ion-item>
 
       <button ion-button full class="button" primary block  (click)="register()" color="button">Sign up</button>
