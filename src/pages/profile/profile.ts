@@ -27,33 +27,41 @@ export class ProfilePage {
 
   status: string;
   title: string;
+  loggedout: boolean;
 
+  userInfo: any = '';
+
+  loginErrorBoolean: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UploadPage');
+  ionViewWillEnter() {
     if (localStorage.getItem('token') !== null) {
-      document.getElementById('loggedout').classList.add('hidden');
+      this.loggedout = false;
       this.title = 'Profile';
     } else {
       this.title = 'Login - Sign Up';
+      this.loggedout = true;
     }
   }
 
   login() {
     this.mediaProvider.login(this.user).subscribe(response => {
-      localStorage.setItem('token', response['token']);
-      this.navCtrl.push(HomePage);
+      this.loginErrorBoolean = false;
+      this.userInfo = response['user'];
+      console.log(this.userInfo);
+      localStorage.setItem('token', response['token']); // add access token for user in the localstorage
+      this.navCtrl.parent.select(0); // navigate to homepage
     }, (error: HttpErrorResponse) => {
       this.status = error.error.message;
+      this.loginErrorBoolean = true;
     });
 
   }
 
   register() {
-    this.mediaProvider.register(this.user)
+    this.mediaProvider.register(this.user);
   }
 
 }
