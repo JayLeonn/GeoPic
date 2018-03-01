@@ -1,6 +1,30 @@
 // http://ionicframework.com/docs/theming/
 
+input{
+  color: white;
+}
 
+ion-content{
+  background-color: #444449 !important;
+}
+
+h1{
+  color: white;
+}
+
+ion-navbar{
+  background-color: #2adf7d !important;
+}
+
+.toolbar-background {
+  background-color: #2adf7d;
+}
+.toolbar-title{
+  color: $light;
+}
+.tab-button{
+  background-color: $button;
+}
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These

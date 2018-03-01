@@ -2,6 +2,8 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 $font-family-base: "Lato", sans-serif !default;
 
+
+
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
@@ -38,8 +40,8 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
+  primary:    #ffffff,
+  secondary:  #2adf7d,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #444449,
@@ -47,7 +49,14 @@ $colors: (
   icon:       #FFFFFF,
   black:      #000000,
 );
+
+//GeoPic Font
 $font-family-base: "Lato";
+//GeoPic Colors
+$button: #2adf7d;
+$black: #000000;
+$dark: #444449;
+$light: #ffffff;
 
 
 // App iOS Variables
