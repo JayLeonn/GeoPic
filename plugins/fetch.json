@@ -2,7 +2,7 @@
   "com-sarriaroman-photoviewer": {
     "source": {
       "type": "registry",
-      "id": "com-sarriaroman-photoviewer"
+      "id": "com-sarriaroman-photoviewer@^1.1.15"
     },
     "is_top_level": true,
     "variables": {}

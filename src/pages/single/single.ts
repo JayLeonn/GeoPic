@@ -16,9 +16,11 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
   templateUrl: 'single.html',
 })
 export class SinglePage {
+
   url: string;
   title: string;
-  message = '';
+  description: string;
+  tags = '';
 
   constructor(
     public navCtrl: NavController, public navParams: NavParams,
@@ -30,6 +32,8 @@ export class SinglePage {
     this.photoViewer.show(this.url, this.title, {share: false});
   }
 
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad SinglePage');
     console.log(this.navParams.get('mediaID'));
@@ -38,13 +42,19 @@ export class SinglePage {
       console.log(response);
       this.url = this.mediaProvider.mediaURL + response['filename'];
       this.title = response['title'];
+      this.description = response ['description'];
+
       this.mediaProvider.getTagByFile(response['file_id']).
+
       subscribe(response => {
         console.log(response);
-        if (response.length === 0) this.message = 'No tags';
+
+        if (response.length === 0) this.tags = 'No tags';
+
         response.forEach(t => {
-          const tag = JSON.parse(t['tag']);
-          console.log(tag);
+          //const tag = JSON.parse(t['tag']);
+          console.log(t['tag']);
+          this.tags = t['tag'];
         });
 
       });

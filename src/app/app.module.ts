@@ -18,6 +18,8 @@ import {HttpModule} from "@angular/http";
 import {HttpClientModule} from "@angular/common/http";
 import { GoogleMaps } from '@ionic-native/google-maps';
 import {SinglePage} from "../pages/single/single";
+import {PipesModule} from "../pipes/pipes.module";
+import {PhotoViewer} from "@ionic-native/photo-viewer";
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import {SinglePage} from "../pages/single/single";
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     HttpModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -54,7 +57,8 @@ import {SinglePage} from "../pages/single/single";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MediaProvider,
-    GoogleMaps
+    GoogleMaps,
+    PhotoViewer
   ]
 })
 export class AppModule {}

@@ -1,17 +1,35 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>APINAVITTUSAATANA</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content padding >
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let file of mediaArray">
+    <img [alt]="file?.title" [src]="mediaProvider.mediaURL + (file?.filename | thumbnail: 'small')"
+         (click)="openSingle(file.file_id)">
+    <ion-card-content>
+      <ion-card-title>
+        {{file?.title}}
+      </ion-card-title>
+      <p>
+        {{file?.description}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card (click)="showImage()" id="modal" class="hidden">
+    <a href="#" class="closeBtn">&#215;</a>
+    <img id="pic" src='img/original/71_file000132701536.jpg'>
+  </ion-card>
+
 </ion-content>
