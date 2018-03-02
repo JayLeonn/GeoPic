@@ -8,13 +8,21 @@ import {SinglePage} from "../single/single";
   templateUrl: 'home.html'
 })
 export class HomePage {
+  //splash screen
+  splash = true;
+  tabBarElement: any;
 
   mediaArray: any;
 
   constructor(public navCtrl: NavController, public mediaProvider: MediaProvider) {
-
+    this.tabBarElement = document.querySelector('.tabbar');
   }
   ionViewDidLoad() {
+    this.tabBarElement.style.display = 'none';
+    setTimeout(() => {
+      this.splash = false;
+      this.tabBarElement.style.display = 'flex';
+    }, 4000);
     console.log("ViewDidLoad");
     this.loadmedia();
   }

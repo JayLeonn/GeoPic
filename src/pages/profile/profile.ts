@@ -32,15 +32,21 @@ export class ProfilePage {
     full_name: ''
   };
 
+  public buttonClicked: boolean = false; //Whatever you want to initialise it as
   status: string;
   title: string;
   loggedout: boolean;
-
   userInfo: any = '';
 
   loginErrorBoolean: boolean;
+  succesfulSignUp: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider) {
+  }
+
+  public onButtonClick() {
+
+    this.buttonClicked = !this.buttonClicked;
   }
 
   ionViewWillEnter() {
@@ -71,6 +77,7 @@ export class ProfilePage {
     this.mediaProvider.register(this.newUser).subscribe(response => {
       this.loginUser = this.newUser;
       this.login();
+      this.succesfulSignUp = true;
     });
 
   }

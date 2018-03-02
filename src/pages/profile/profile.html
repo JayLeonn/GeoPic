@@ -36,9 +36,8 @@
       </ion-item>
 
     </ion-list>
-
-    <ion-list id="signup">
-      <h1>Sign Up</h1>
+    <h5 (click)="onButtonClick()">Or Sign Up Here!</h5>
+    <ion-list id="signup" *ngIf="buttonClicked">
       <ion-item class="ProfilePage">
         <ion-label floating color="light">Username</ion-label>
         <ion-input [(ngModel)]="newUser.username" type="text" value=""></ion-input>
@@ -60,6 +59,10 @@
       </ion-item>
 
       <button ion-button full class="button" primary block  (click)="register()" color="button">Sign up</button>
+
+      <ion-item class="errormessage" *ngIf="succesfulSignUp">
+        <h6>Signed up Succesfully <br> Please Log In next!</h6>
+      </ion-item>
 
     </ion-list>
   </ion-content>
