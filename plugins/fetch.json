@@ -7,19 +7,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-googlemaps": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-googlemaps@^2.2.5"
-    },
-    "is_top_level": true,
-    "variables": {
-      "API_KEY_FOR_ANDROID": "AIzaSyB3VkvN-17JTq8iSLFptHT4KjPmYuPfa6k",
-      "API_KEY_FOR_IOS": "AIzaSyB3VkvN-17JTq8iSLFptHT4KjPmYuPfa6k",
-      "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
-      "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
-    }
-  },
   "com.googlemaps.ios": {
     "source": {
       "type": "registry",
@@ -67,5 +54,16 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-googlemaps": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-googlemaps"
+    },
+    "is_top_level": true,
+    "variables": {
+      "API_KEY_FOR_ANDROID": "AIzaSyB3VkvN-17JTq8iSLFptHT4KjPmYuPfa6k",
+      "API_KEY_FOR_IOS": "AIzaSyB3VkvN-17JTq8iSLFptHT4KjPmYuPfa6k"
+    }
   }
 }

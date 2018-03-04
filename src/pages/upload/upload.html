@@ -12,13 +12,11 @@
 
 </ion-header>
 
-
 <ion-content padding>
 
   <form id="container">
 
     <h1>Upload a file</h1>
-
     <ion-input type="file" id="upfile" class="hidden" (change)="setFile($event)"></ion-input>
 
     <ion-item id="rounded">
@@ -31,7 +29,7 @@
       <ion-textarea [(ngModel)]="media.description" type="text" name="description"></ion-textarea>
     </ion-item>
 
-    <div padding class="">
+    <div padding>
       <button primary block class="button" id="uploadbutton" type="submit" (click)="startUpload()">Upload</button>
     </div>
 

@@ -30,16 +30,12 @@ export class MapPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MapPage');
     this.loadMap();
   }
 
   loadMap() {
-
     const map_div = document.getElementById('map_canvas');
-
-    console.log('maps');
-
+    //console.log('maps');
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
