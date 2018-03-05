@@ -31,11 +31,19 @@ import {
 
 export class UploadPage {
 
+  ionViewDidLoad() {
+    this.form = <HTMLFormElement>document.getElementById('uploadForm'); // we need to cast it like this: https://stackoverflow.com/questions/29983341/typescript-form-reset-not-working
+  }
+
+  form;
   file: File;
   media: Media = {
     title: '',
     description: ''
   };
+
+  newTag;
+  tags = [];
 
   // image position preview variables
   map: GoogleMap;
@@ -55,10 +63,11 @@ export class UploadPage {
     this.getExif(this.file);
   }
 
+  // this method retrieves latitude and longitude values from image
   getExif(img) {
     try {
       EXIF.getData(img, () => {
-        console.log(EXIF.getAllTags(img));
+        //console.log(EXIF.getAllTags(img));
         if (EXIF.getTag(img, 'GPSLatitude')) {
           this.lat = this.degreesToDecimals(EXIF.getTag(img, 'GPSLatitude'));
           this.lon = this.degreesToDecimals(EXIF.getTag(img, 'GPSLongitude'));
@@ -67,7 +76,7 @@ export class UploadPage {
           console.log(this.lon);
           this.showPosition(this.lat, this.lon);
         } else {
-          console.log('No GPS data found from image');
+          alert('No GPS data found from image');
         }
       });
     } catch (e) {
@@ -75,16 +84,17 @@ export class UploadPage {
     }
   }
 
+  // this method converts EXIF location data to decimal values that we can use in google maps
   degreesToDecimals(deg: Array<number>): number {
-    
     return deg[0]['numerator'] + deg[1]['numerator'] /
            (60 * deg[1]['denominator']) + deg[2]['numerator'] / (3600 * deg[2]['denominator']);
   }
 
+  //
   showPosition(latitude, longitude) {
     this.locationFound = true; // show the map in DOM
     const map_div = document.getElementById('upload_map');
-    console.log('maps');
+    //console.log('maps');
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
@@ -96,13 +106,15 @@ export class UploadPage {
       }
     };
 
-    this.map = GoogleMaps.create(map_div, mapOptions);
-
+    if(map_div.firstChild) {
+      this.map.destroy()
+      this.map = GoogleMaps.create(map_div, mapOptions);
+    } else {
+      this.map = GoogleMaps.create(map_div, mapOptions);
+    }
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
-        console.log('Map is ready!');
-
         // Now you can use all methods safely.
         this.map.addMarker({
             icon: 'blue',
@@ -111,14 +123,15 @@ export class UploadPage {
               lat: latitude,
               lng: longitude
             }
-          })
+          });
       });
+
+      
   }
 
   getFile(){
     document.getElementById("upfile").click();
   }
-
 
   startUpload() {
     this.loading.present();
@@ -134,27 +147,51 @@ export class UploadPage {
     //console.log('before' + formData);
 
     this.mediaProvider.upload(formData, localStorage.getItem('token')).subscribe(data => {
-      console.log(data);
+      //console.log(data);
       const fileId = data['file_id'];
-      const tag = {
-        file_id: fileId,
-      };
 
-      this.mediaProvider.postTag(tag, localStorage.getItem('token')).subscribe(response => {
-        setTimeout(() => {
+      for (var i = 0; i < this.tags.length; i++) {
+
+        let tag = {
+          file_id: fileId,
+          tag: this.tags[i]
+        };
+
+        this.mediaProvider.postTag(tag, localStorage.getItem('token')).subscribe(response => {
+          setTimeout(() => {
+            
+          }, 2000);
+        }, (tagError: HttpErrorResponse) => {
+          console.log(tagError);
           this.loading.dismiss();
-          this.navCtrl.parent.select(0); // navigate to homepage
-        }, 2000);
-      }, (tagError: HttpErrorResponse) => {
-        console.log(tagError);
-        this.loading.dismiss();
-      });
-      console.log('after' + formData);
+        });
+      }
+
+      this.loading.dismiss();
+      this.navCtrl.parent.select(0); // navigate to homepage
+
+      //console.log('after' + formData);
+
+      if(document.getElementById('upload_map').firstChild) {
+        this.map.destroy(); // destroy map after succesfull upload
+      }
+
+      this.locationFound = false; // close the google map preview
+      this.form.reset(); // reset form for next upload
 
     }, (e: HttpErrorResponse) => {
       this.loading.dismiss();
       console.log(e);
     });
+  }
+
+  addTag() {
+    this.tags.push(this.newTag);
+    this.newTag = '';
+  }
+
+  removeTag(index) {
+    this.tags.splice(index, 1);
   }
 
 }

@@ -14,7 +14,7 @@
 
 <ion-content padding>
 
-  <form id="container">
+  <form id="uploadForm">
 
     <h1>Upload a file</h1>
     <input type="file" id="upfile" class="hidden button" (change)="setFile($event)"/>
@@ -28,6 +28,19 @@
       <ion-label floating>Description</ion-label>
       <ion-textarea [(ngModel)]="media.description" type="text" name="description"></ion-textarea>
     </ion-item>
+
+    <ion-item>
+      <ion-label floating>Tags</ion-label>
+      <ion-textarea [(ngModel)]="newTag" type="text" name="tag"></ion-textarea>
+    </ion-item>
+
+    <div padding>
+      <button primary block class="button" (click)="addTag()">Add tag</button>
+    </div>
+
+    <ion-list padding *ngFor="let tag of tags; let i = index">
+      <li (click)="removeTag(i)">{{ tag }}</li>
+    </ion-list>
 
     <div padding>
       <button primary block class="button" id="uploadbutton" type="submit" (click)="startUpload()">Upload</button>
