@@ -21,6 +21,20 @@
       <p *ngIf="tags !== ''">{{ tags }}</p>
     </ion-card-content>
 
+    <ion-card-content>
+      <ul id="commentSection">
+
+      </ul>
+    </ion-card-content>
+
+    <form>
+    <ion-item class="">
+      <ion-label floating color="gray">Comment as apina</ion-label>
+      <ion-textarea [(ngModel)]="comment" type="text" name="comment"></ion-textarea>
+    </ion-item>
+    <button primary block class="button commentbutton" type="submit" (click)="pushComment()" color="button">Comment</button>
+    </form>
+
   </ion-card>
 
 </ion-content>
