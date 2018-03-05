@@ -17,7 +17,7 @@
   <form id="container">
 
     <h1>Upload a file</h1>
-    <ion-input type="file" id="upfile" class="hidden" (change)="setFile($event)"></ion-input>
+    <input type="file" id="upfile" class="hidden button" (change)="setFile($event)"/>
 
     <ion-item id="rounded">
       <ion-label floating>Title</ion-label>
@@ -34,5 +34,8 @@
     </div>
 
   </form>
+  
+  <h1 *ngIf="locationFound">Picture location</h1>
+  <div style="width: 100%; height: 400px" id="upload_map"></div>
 
 </ion-content>
