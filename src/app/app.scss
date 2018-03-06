@@ -1,23 +1,23 @@
 // http://ionicframework.com/docs/theming/
 
 input{
-  color: white;
+  color: $light !important;
 }
 
 ion-content{
-  background-color: #444449 !important;
+  background-color: $dark !important;
 }
 
 h1, h2, h3, h4, h5, h6, p{
-  color: white;
+  color: $light;
 }
 
 ion-navbar{
-  background-color: #2adf7d !important;
+  background-color: $button !important;
 }
 
 .toolbar-background {
-  background-color: #2adf7d;
+  background-color: $button;
 }
 
 .toolbar-title{

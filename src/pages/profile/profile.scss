@@ -1,13 +1,12 @@
 page-profile {
   .ProfilePage{
-    background-color: #444449 !important;
+    background-color: $dark !important;
   }
   .hidden {
     visibility: hidden;
   }
 
   .button {
-    //background-color: dodgerblue; /* Blue */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -16,6 +15,9 @@ page-profile {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+  }
+  h5{
+    text-decoration: underline;
   }
   ion-item{
     padding: 0 !important;

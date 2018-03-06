@@ -1,18 +1,95 @@
 page-upload {
 
+  .uploadpage{
+    background-color: $dark;
+  }
+
+  .padding{
+    padding: 16px;
+  }
+
+  .tag{
+    background-color: $dark;
+    display: inline-block;
+    color: $button;
+    padding: 7px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: groove $button 2px;
+  }
+  ion-list{
+    margin: 0px !important;
+    padding: 5px;
+  }
+  .text-input {
+    color: $light !important;
+  }
+  ion-item{
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: $dark;
+  }
+  .ChooseFile{
+    background-color: $button;
+    width: 100%;
+  }
+  .taglistwrapper{
+    display: flex;
+    justify-content: center;
+  }
+
+  h1{
+    color: white !important;
+  }
+
   .button {
-    background-color: dodgerblue; /* Blue */
+    background-color: $button;
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .buttons{
+    text-align: center;
+    display: flex;
+    justify-content: center;
   }
 
   .uploadForm {
     width: 90%;
   }
 
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  .inputfile + label {
+    font-size: 16px;
+    color: white;
+    background-color: $button;
+    padding: 12px;
+    display: inline-block;
+  }
+
+  .inputfile:focus + label,
+  .inputfile + label:hover {
+    background-color: black;
+  }
+  .inputfile + label {
+    cursor: pointer; /* "hand" cursor */
+  }
+  label{
+    width: 100%;
+    text-align: center;
+  }
 }
