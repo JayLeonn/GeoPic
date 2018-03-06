@@ -138,10 +138,13 @@ export class UploadPage {
   upload() {
 
     const formData = new FormData();
-    // create FormData-object
+    
     // add title and description to FormData object
     formData.append('title', this.media.title);
-    formData.append('description', this.media.description);
+
+    // add latitude and longitude before real description
+    formData.append('description', this.lat + '|' + this.lon + '|' + this.media.description);
+   
     // add file to FormData object
     formData.append('file', this.file);
     // send FormData object to API
@@ -151,8 +154,8 @@ export class UploadPage {
       //console.log(data);
       this.fileId = data['file_id'];
 
-      // here we put two default tags that are in all of our apps pictures
-      this.defaultTags();
+      // here we put our default tag 'geopic' that is in all of our apps pictures
+      this.defaultTag();
 
       for (var i = 0; i < this.tags.length; i++) {
 
@@ -210,21 +213,14 @@ export class UploadPage {
     });
   }
 
-  defaultTags() {
+  defaultTag() {
     const geopicTag = {
       file_id: this.fileId,
       tag: "geopic"
     }
 
-    const locationTag = {
-      file_id: this.fileId,
-      tag: this.lat + '|' + this.lon
-    }
-
     this.mediaProvider.postTag(geopicTag, localStorage.getItem('token')).subscribe();
-    console.log('added tag: geopic');
-    this.mediaProvider.postTag(locationTag, localStorage.getItem('token')).subscribe();
-    console.log('added tag: location');
+    //console.log('added tag: geopic');
   }
 
 }

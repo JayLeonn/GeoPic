@@ -1,3 +1,5 @@
+import { CoordinatesPipe } from './../pipes/coordinates/coordinates';
+
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -58,7 +60,8 @@ import {PhotoViewer} from "@ionic-native/photo-viewer";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MediaProvider,
     GoogleMaps,
-    PhotoViewer
+    PhotoViewer,
+    CoordinatesPipe
   ]
 })
 export class AppModule {}

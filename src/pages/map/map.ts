@@ -1,3 +1,4 @@
+import { CoordinatesPipe } from './../../pipes/coordinates/coordinates';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MediaProvider } from '../../providers/media/media';
@@ -28,55 +29,43 @@ export class MapPage {
 
   map: GoogleMap;
   posts: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider, private coordinatePipe: CoordinatesPipe) {
   }
 
   ionViewDidLoad() {
     this.loadMap();
   }
 
+  ionViewWillEnter() {
+    this.map.addMarker(null);
+    this.putMarkers();
+  }
+
   putMarkers() {
     this.mediaProvider.getPostsByTag('geopic').subscribe(data => {
       //console.log(data);
       this.posts = data;
-
+      
       for(var i = 0; i < this.posts.length; i++) {
-        let mapMarker = {
+        //this.getLatLon(this.posts[i].file_id);
+
+        let mapMarker: MarkerOptions = {
           title: this.posts[i].title,
           icon: 'blue',
-          position: {
-            lat: this.getLatitude(this.posts[i].file_id),
-            lng: this.getLongitude(this.posts[i].file_id)
+          map: this.map,
+          position:  {
+            lat: this.coordinatePipe.transform(this.posts[i].description, 'lat'),
+            lng: this.coordinatePipe.transform(this.posts[i].description, 'lng')
           }
         };
+
+        console.log(mapMarker);
+
         this.map.addMarker(mapMarker);
       }
 
     });
-  }
-
-  getLatitude(file_id) {
-    var returnable = [];
-    this.mediaProvider.getTagByFile(file_id).subscribe(data => {
-      // the second index tag is by default our picture coordinates 
-      var tmp = data[1]['tag'];
-      //console.log(tmp);
-      returnable = tmp.split('|');
-      //console.log(returnable);
-    });
-    
-    return returnable[0]; // return the first part of split (latitude)
-  }
-
-  getLongitude(file_id) {
-    var returnable = [];
-    this.mediaProvider.getTagByFile(file_id).subscribe(data => {
-      // the second index tag is by default our picture coordinates 
-      var tmp = data[1]['tag'];
-      returnable = tmp.split('|');
-    });
-    
-    return returnable[1]; // return the second part of split (longitude)
   }
 
   loadMap() {
@@ -103,6 +92,7 @@ export class MapPage {
         //console.log('Map is ready!');
 
         // Now you can use all methods safely.
+
         /*
         this.map.addMarker({
             title: 'Ionic',
