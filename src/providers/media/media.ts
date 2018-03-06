@@ -82,4 +82,8 @@ export class MediaProvider {
     return this.http.get(this.apiUrl + '/users/' + id, settings);
   }
 
+  getPostsByTag(tag) {
+    return this.http.get(this.apiUrl + '/tags/' + tag);
+  }
+
 }

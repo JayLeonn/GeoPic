@@ -45,21 +45,23 @@ export class UploadPage {
   newTag;
   tags = [];
 
+  fileId;
+
   // image position preview variables
   map: GoogleMap;
   lat;
   lon;
   locationFound = false;
 
-  loading = this.loadingCtrl.create({
-    content: 'Uploading, please wait...',
-  });
+  loader; // our "uploading"- screen variable
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider, private loadingCtrl: LoadingController) {
   }
 
   setFile(evt) {
     this.file = evt.target.files[0];
+    console.log(this.file);
+    console.log(evt.target);
     this.getExif(this.file);
   }
 
@@ -133,8 +135,7 @@ export class UploadPage {
     document.getElementById("upfile").click();
   }
 
-  startUpload() {
-    this.loading.present();
+  upload() {
 
     const formData = new FormData();
     // create FormData-object
@@ -148,26 +149,31 @@ export class UploadPage {
 
     this.mediaProvider.upload(formData, localStorage.getItem('token')).subscribe(data => {
       //console.log(data);
-      const fileId = data['file_id'];
+      this.fileId = data['file_id'];
+
+      // here we put two default tags that are in all of our apps pictures
+      this.defaultTags();
 
       for (var i = 0; i < this.tags.length; i++) {
 
         let tag = {
-          file_id: fileId,
+          file_id: this.fileId,
           tag: this.tags[i]
         };
 
         this.mediaProvider.postTag(tag, localStorage.getItem('token')).subscribe(response => {
           setTimeout(() => {
-            
-          }, 2000);
+            //just in case, have some timeout
+          }, 500);
         }, (tagError: HttpErrorResponse) => {
           console.log(tagError);
-          this.loading.dismiss();
+          this.loader.dismiss();
         });
       }
 
-      this.loading.dismiss();
+      this.tags = [];
+
+      this.loader.dismiss();
       this.navCtrl.parent.select(0); // navigate to homepage
 
       //console.log('after' + formData);
@@ -180,7 +186,7 @@ export class UploadPage {
       this.form.reset(); // reset form for next upload
 
     }, (e: HttpErrorResponse) => {
-      this.loading.dismiss();
+      this.loader.dismiss();
       console.log(e);
     });
   }
@@ -192,6 +198,33 @@ export class UploadPage {
 
   removeTag(index) {
     this.tags.splice(index, 1);
+  }
+
+  startUpload() {
+    this.loader = this.loadingCtrl.create({
+      content: 'Uploading, please wait...',
+    });
+  
+    this.loader.present().then(() => {
+      this.upload();
+    });
+  }
+
+  defaultTags() {
+    const geopicTag = {
+      file_id: this.fileId,
+      tag: "geopic"
+    }
+
+    const locationTag = {
+      file_id: this.fileId,
+      tag: this.lat + '|' + this.lon
+    }
+
+    this.mediaProvider.postTag(geopicTag, localStorage.getItem('token')).subscribe();
+    console.log('added tag: geopic');
+    this.mediaProvider.postTag(locationTag, localStorage.getItem('token')).subscribe();
+    console.log('added tag: location');
   }
 
 }
