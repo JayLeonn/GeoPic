@@ -18,9 +18,12 @@ export class CoordinatesPipe implements PipeTransform {
     if(type == 'lat') {
       var tmp = desc.split('|');
       return parseFloat(tmp[0]);
-    } else if (type == 'lng') {
+    } else if(type == 'lng') {
       var tmp = desc.split('|');
       return parseFloat(tmp[1]);
+    } else if(type == 'desc') {
+      var tmp = desc.split('|');
+      return parseFloat(tmp[2]);
     }
   }
 
