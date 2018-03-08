@@ -35,6 +35,7 @@ export class MapPage {
 
   ionViewDidLoad() {
     this.loadMap();
+    this.mediaProvider.setMapBackgroundColor();
   }
 
   ionViewWillEnter() {
@@ -54,15 +55,21 @@ export class MapPage {
           title: this.posts[i].title,
           icon: 'blue',
           map: this.map,
+          post_id: this.posts[i].file_id,
           position:  {
             lat: this.coordinatePipe.transform(this.posts[i].description, 'lat'),
             lng: this.coordinatePipe.transform(this.posts[i].description, 'lng')
           }
         };
 
-        console.log(mapMarker);
+        //console.log(mapMarker);
 
-        this.map.addMarker(mapMarker);
+        this.map.addMarker(mapMarker).then(marker => {
+          marker.on(GoogleMapsEvent.MARKER_CLICK)
+            .subscribe(() => {
+              console.log(marker.get('post_id'));
+            });
+        });
       }
 
     });
@@ -83,6 +90,7 @@ export class MapPage {
     };
 
     this.map = GoogleMaps.create(map_div, mapOptions);
+    this.map.set
 
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)

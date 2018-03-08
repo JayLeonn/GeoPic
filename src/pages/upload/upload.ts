@@ -12,7 +12,8 @@ import {
   GoogleMapOptions,
   CameraPosition,
   MarkerOptions,
-  Marker
+  Marker,
+  Environment
  } from '@ionic-native/google-maps';
 
 /**
@@ -69,7 +70,7 @@ export class UploadPage {
   getExif(img) {
     try {
       EXIF.getData(img, () => {
-        //console.log(EXIF.getAllTags(img));
+        console.log(EXIF.getAllTags(img));
         if (EXIF.getTag(img, 'GPSLatitude')) {
           this.lat = this.degreesToDecimals(EXIF.getTag(img, 'GPSLatitude'));
           this.lon = this.degreesToDecimals(EXIF.getTag(img, 'GPSLongitude'));
@@ -111,8 +112,10 @@ export class UploadPage {
     if(map_div.firstChild) {
       this.map.destroy()
       this.map = GoogleMaps.create(map_div, mapOptions);
+      this.mediaProvider.setMapBackgroundColor();
     } else {
       this.map = GoogleMaps.create(map_div, mapOptions);
+      this.mediaProvider.setMapBackgroundColor();
     }
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)

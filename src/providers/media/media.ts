@@ -2,6 +2,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {NavController} from "ionic-angular";
 import {User} from "../../app/Interfaces/user";
+import { Environment } from '@ionic-native/google-maps';
 
 /*
   Generated class for the MediaProvider provider.
@@ -84,6 +85,10 @@ export class MediaProvider {
 
   getPostsByTag(tag) {
     return this.http.get(this.apiUrl + '/tags/' + tag);
+  }
+
+  setMapBackgroundColor() {
+    Environment.setBackgroundColor('#444449');
   }
 
 }
