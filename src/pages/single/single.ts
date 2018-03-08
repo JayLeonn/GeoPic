@@ -3,8 +3,10 @@ import {Loading, LoadingController, NavController, NavParams} from 'ionic-angula
 import {HttpErrorResponse} from '@angular/common/http';
 import {MediaProvider} from "../../providers/media/media";
 import {PhotoViewer} from "@ionic-native/photo-viewer";
-import {Media} from "../../app/Interfaces/media";
+import {Comment} from "../../app/Interfaces/comment";
 import {HomePage} from "../home/home";
+import {debugOutputAstAsTypeScript} from "@angular/compiler";
+import {update} from "ionic-angular/umd/components/slides/swiper/swiper";
 
 /**
  * Generated class for the SinglePage page.
@@ -19,15 +21,26 @@ import {HomePage} from "../home/home";
 })
 export class SinglePage {
 
+  commentData: Comment = {
+    file_id: '',
+    comment: ''
+  };
+
   url: string;
   title: string;
   description: string;
   tags = '';
-  comments: any;
   commentArray: any;
   commentguy: any;
   comment: string;
   mediaID = this.navParams.get('mediaID');
+  currentMediaId: string;
+  currentUserName: string;
+
+  commentsLoaded: boolean;
+
+  i = 0;
+  y = 0;
 
   userInfo: any = '';
 
@@ -49,9 +62,14 @@ export class SinglePage {
 
 
   ionViewDidLoad() {
+    console.log(this.commentsLoaded + '1');
     console.log('ionViewDidLoad SinglePage');
     console.log(this.mediaID);
     this.loadcomments();
+    this.currentUser();
+  }
+
+  getMedia(){
     this.mediaProvider.getSingleMedia(this.mediaID).
     subscribe(response => {
       console.log(response);
@@ -64,6 +82,7 @@ export class SinglePage {
       this.mediaProvider.getTagByFile(response['file_id']).
       subscribe(response => {
         console.log(response);
+        this.commentsLoaded = true;
 
         if (response.length === 0) this.tags = 'No tags';
 
@@ -77,51 +96,59 @@ export class SinglePage {
     }, (error: HttpErrorResponse) => {
       console.log(error);
     });
+
   }
 
 
   loadcomments() {
 
-    const commentSection = document.getElementById('commentSection');
       this.mediaProvider.getCommentsByFile(this.mediaID).subscribe(data => {
         console.log(data);
         this.commentArray = data;
+
+        console.log('before '+this.i);
+        console.log(this.commentArray);
 
         this.commentArray.map(com => {
 
           this.mediaProvider.getUserNameById(com.user_id, localStorage.getItem('token')).subscribe(response => {
 
-            console.log('geted username');
             com.user = response;
-            // console.log(com['user'].username + ': ' + com['comment']);
-            this.commentguy = com['user'].username + ': ' + com['comment'];
-            const commentElement = `<li>` + this.commentguy + `</li>`;
 
-            commentSection.innerHTML += commentElement;
+            this.getMedia();
+
           });
 
         });
       });
+      this.i++;
+      console.log('after '+this.i)
   }
 
   pushComment(){
-    this.loading.present();
 
-    const comment = new FormData();
+    this.commentData.file_id = this.mediaID;
 
-    comment.append('comment', this.comment);
-
-    console.log('before' + comment);
-
-    this.mediaProvider.postComment(comment, this.mediaID, localStorage.getItem('token'))
-      .subscribe(data =>{
-        console.log(data);
-        this.loading.dismiss();
-      }, (commentError: HttpErrorResponse) => {
-        console.log(commentError);
-        this.loading.dismiss();
+    this.mediaProvider.postComment(this.commentData, localStorage.getItem('token'))
+      .subscribe(response => {
+        console.log(response);
+        console.log(this.commentData);
       });
-    console.log('after' + comment);
+    this.loadcomments();
+    }
+
+  currentUser() {
+
+    this.mediaProvider.getCurrentUser(localStorage.getItem('token'))
+      .subscribe(user => {
+
+        this.currentUserName = user['username'];
+
+        console.log(this.currentMediaId);
+        }, (getUserError: HttpErrorResponse) => {
+        console.log(getUserError);
+      }
+    )
   }
 
 }

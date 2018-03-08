@@ -22,15 +22,20 @@
     </ion-card-content>
 
     <ion-card-content>
-      <ul id="commentSection">
+      <ion-list *ngIf="commentsLoaded">
+        <ion-card *ngFor="let comment of commentArray" class="commentcard">
+          <p class="commenter">{{comment.user.username}}</p>
+          <p class="comment">{{comment.comment}}</p>
 
-      </ul>
+        </ion-card>
+
+      </ion-list>
     </ion-card-content>
 
     <form>
     <ion-item class="">
-      <ion-label floating color="gray">Comment as apina</ion-label>
-      <ion-textarea [(ngModel)]="comment" type="text" name="comment"></ion-textarea>
+      <ion-label floating color="gray">Comment as {{currentUserName}}</ion-label>
+      <ion-textarea [(ngModel)]="commentData.comment" type="text" name="comment" id="comment"></ion-textarea>
     </ion-item>
     <button primary block class="button commentbutton" type="submit" (click)="pushComment()" color="button">Comment</button>
     </form>
