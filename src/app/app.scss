@@ -31,6 +31,7 @@ ion-navbar{
 .tabbar a[aria-selected=true] {
   border: none;
   box-shadow: 0px 2px 0px 0px #ffffff inset !important;
+  opacity: 0.7 !important;
 }
 // App Global Sass
 // --------------------------------------------------
