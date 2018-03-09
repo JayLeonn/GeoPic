@@ -12,7 +12,7 @@ export class CoordinatesPipe implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */
-  transform(desc: string, type): number {
+  transform(desc: string, type): any {
     // description goes like this: latitude | longitude | description
 
     if(type == 'lat') {
@@ -23,7 +23,7 @@ export class CoordinatesPipe implements PipeTransform {
       return parseFloat(tmp[1]);
     } else if(type == 'desc') {
       var tmp = desc.split('|');
-      return parseFloat(tmp[2]);
+      return (tmp[2]);
     }
   }
 
