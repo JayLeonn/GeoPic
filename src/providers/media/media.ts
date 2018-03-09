@@ -94,6 +94,10 @@ export class MediaProvider {
     return this.http.get(this.apiUrl + '/tags/' + tag);
   }
 
+  getPostsByUser(id) {
+    return this.http.get(this.apiUrl + '/media/user/' + id)
+  }
+
   setMapBackgroundColor() {
     Environment.setBackgroundColor('#444449');
   }
