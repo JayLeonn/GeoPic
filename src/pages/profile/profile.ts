@@ -36,7 +36,9 @@ export class ProfilePage {
   status: string;
   title: string;
   loggedout: boolean;
-  userInfo: any = '';
+  userInfo: any; // here we store info about the user that is logged in
+
+  userComments: any;
 
   loginErrorBoolean: boolean;
   succesfulSignUp: boolean;
@@ -45,24 +47,43 @@ export class ProfilePage {
   }
 
   public onButtonClick() {
-
     this.buttonClicked = !this.buttonClicked;
   }
 
   ionViewWillEnter() {
+    this.profilePageLoad();
+  }
+
+  profilePageLoad() {
     if (localStorage.getItem('token') !== null) {
       this.loggedout = false;
       this.title = 'Profile';
+      try {
+        this.mediaProvider.getCurrentUser(localStorage.getItem('token')).subscribe(data => {
+          this.userInfo = data;
+          console.log(this.userInfo);
+        });
+        this.loggedout = false;
+      } catch(e) {
+        console.log(e);
+        this.loggedout = true;
+      }
+
     } else {
       this.title = 'Login - Sign Up';
       this.loggedout = true;
     }
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    this.profilePageLoad();
+  }
+
   login() {
     this.mediaProvider.login(this.loginUser).subscribe(response => {
       this.loginErrorBoolean = false;
-      this.userInfo = response['user'];
+      this.userInfo = response['user']; // get the "user" section of the response
       console.log(this.userInfo);
       localStorage.setItem('token', response['token']); // add access token for user in the localstorage
       this.navCtrl.parent.select(0); // navigate to homepage

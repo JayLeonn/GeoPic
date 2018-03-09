@@ -68,7 +68,12 @@
   </ion-content>
 
   <ion-content class="user-profile" *ngIf="!loggedout">
-    <h1>You are logged in as: {{['username'] }}</h1>
+    <h1>You are logged in as: {{ userInfo.username }}</h1>
+    <ion-list>
+      <h1>Comments</h1>
+      <h2 *ngFor="let comment of userComments"> {{ comment }}}</h2>
+    </ion-list>
+    <button ion-button full class="button" primary block  (click)="logout()" color="button">Log out</button>
   </ion-content>
 
 </ion-content>
