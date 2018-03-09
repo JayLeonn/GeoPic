@@ -58,6 +58,13 @@ export class MediaProvider {
     return this.http.post(this.apiUrl + '/media', formData, settings);
   }
 
+  getAllComments(token) {
+    const settings = {
+      headers: new HttpHeaders().set('x-access-token', token)
+    }
+    return this.http.get(this.apiUrl + '/comments' , settings)
+  }
+
   getCommentsByFile (id) {
     return this.http.get<Array<object>>(this.apiUrl + '/comments/file/' + id);
   }

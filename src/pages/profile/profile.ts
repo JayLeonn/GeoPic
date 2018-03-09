@@ -36,9 +36,11 @@ export class ProfilePage {
   status: string;
   title: string;
   loggedout: boolean;
-  userInfo: any; // here we store info about the user that is logged in
+  userInfo: any = ''; // here we store info about the user that is logged in
 
   userComments: any;
+
+  currentUser: string;
 
   loginErrorBoolean: boolean;
   succesfulSignUp: boolean;
@@ -61,6 +63,7 @@ export class ProfilePage {
       try {
         this.mediaProvider.getCurrentUser(localStorage.getItem('token')).subscribe(data => {
           this.userInfo = data;
+          this.currentUser = data['username'];
           console.log(this.userInfo);
         });
         this.loggedout = false;
@@ -73,6 +76,13 @@ export class ProfilePage {
       this.title = 'Login - Sign Up';
       this.loggedout = true;
     }
+  }
+
+  getUserComments() {
+    this.mediaProvider.getAllComments(localStorage.getItem('token')).subscribe(data => {
+      this.userComments = data;
+      this.userComments = this.userComments.filter(this.userInfo.user_id);
+    });
   }
 
   logout() {
