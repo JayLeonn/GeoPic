@@ -2,6 +2,18 @@ page-map {
 
 }
 
+.title-image {
+  margin-top: 8px;
+  height: 40px;
+  padding: 8px;
+  text-align: center;
+}
+
+ion-title{
+  justify-content: center;
+  display: flex;
+}
+
 #map_canvas {
     height: 100%;
     width: 100%;
