@@ -83,7 +83,6 @@ export class ProfilePage {
     this.userComments = [];
     this.mediaProvider.getAllComments(localStorage.getItem('token')).subscribe(data => {
       this.userComments = data;
-      this.userComments = this.userComments.filter(this.userInfo.user_id);
       this.userComments.reverse(); // get newest on top
     });
   }
