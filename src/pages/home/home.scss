@@ -9,6 +9,18 @@
   background-color: #002a3e;
 }
 
+.title-image {
+  margin-top: 8px;
+  height: 40px;
+  padding: 8px;
+  text-align: center;
+}
+
+ion-title{
+  justify-content: center;
+  display: flex;
+}
+
 .flb {
   background-color: #000000;
   height:100%;
