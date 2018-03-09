@@ -67,6 +67,7 @@ export class SinglePage {
     console.log(this.mediaID);
     this.loadcomments();
     this.currentUser();
+    this.countFavourites();
   }
 
   getMedia(){
@@ -149,6 +150,32 @@ export class SinglePage {
         console.log(getUserError);
       }
     )
+  }
+
+  addToFavourites (id) {
+
+    const file_id = {
+      mediaID: id
+    };
+
+    console.log(file_id);
+
+    this.mediaProvider.favouriteThis(this.mediaID, localStorage.getItem('token'))
+      .subscribe( favourite => {
+        console.log(favourite);
+      },(error: HttpErrorResponse) => {
+        console.log(error);
+      });
+
+  }
+
+  countFavourites () {
+    this.mediaProvider.getLikes(this.mediaID)
+      .subscribe( favouriteCount => {
+
+        console.log(favouriteCount);
+
+        });
   }
 
 }

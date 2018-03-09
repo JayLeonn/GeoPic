@@ -91,4 +91,15 @@ export class MediaProvider {
     Environment.setBackgroundColor('#444449');
   }
 
+  favouriteThis (file_id, token) {
+    const settings = {
+      headers: new HttpHeaders().set('x-access-token', token),
+    };
+    return this.http.post(this.apiUrl + '/favourites', file_id, settings);
+  }
+
+  getLikes (id) {
+    return this.http.get(this.apiUrl + '/favourites/file/' + id);
+  }
+
 }
