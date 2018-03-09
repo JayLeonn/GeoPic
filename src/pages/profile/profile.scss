@@ -29,8 +29,17 @@ page-profile {
   }
   .errormessage{
     background-color: $dark;
-    padding: 5px;
+    padding: 4px;
     border: solid 2px white !important;
     text-align: center !important;
+  }
+  ion-label{
+    padding: 0px !important;
+  }
+  .item-inner{
+    padding: 0px;
+  }
+  h6{
+    margin-top: 0px !important;
   }
 }
