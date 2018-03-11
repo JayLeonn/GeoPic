@@ -30,10 +30,20 @@ export class MapPage {
   map: GoogleMap;
   posts: any;
 
+  //splash screen variables
+  splash = true;
+  tabBarElement: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider, private coordinatePipe: CoordinatesPipe) {
+    this.tabBarElement = document.querySelector('.tabbar');
   }
 
   ionViewDidLoad() {
+    this.tabBarElement.style.display = 'none';
+    setTimeout(() => {
+      this.splash = false;
+      this.tabBarElement.style.display = 'flex';
+    }, 4000);
     this.loadMap();
     this.mediaProvider.setMapBackgroundColor();
   }
@@ -47,7 +57,7 @@ export class MapPage {
     this.mediaProvider.getPostsByTag('geopic').subscribe(data => {
       //console.log(data);
       this.posts = data;
-      
+
       for(var i = 0; i < this.posts.length; i++) {
         //this.getLatLon(this.posts[i].file_id);
 

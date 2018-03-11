@@ -1,9 +1,11 @@
+import { CoordinatesPipe } from './../../pipes/coordinates/coordinates';
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, UrlSerializer} from 'ionic-angular';
 import {HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {MediaProvider} from "../../providers/media/media";
 import {HomePage} from "../home/home";
 import {User} from "../../app/Interfaces/user";
+import {SinglePage} from "../single/single";
 
 /**
  * Generated class for the ProfilePage page.
@@ -39,13 +41,13 @@ export class ProfilePage {
   userInfo: any = ''; // here we store info about the user that is logged in
 
   userComments: any;
-
-  currentUser: string;
+  userUploads: any;
+  currentUser: string; // store username here
 
   loginErrorBoolean: boolean;
   succesfulSignUp: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider, private pipe: CoordinatesPipe) {
   }
 
   public onButtonClick() {
@@ -78,15 +80,33 @@ export class ProfilePage {
     }
   }
 
+  openSingle(id) {
+    this.navCtrl.push(SinglePage, {
+      mediaID: id,
+    });
+  }
+
   getUserComments() {
+    this.userComments = [];
     this.mediaProvider.getAllComments(localStorage.getItem('token')).subscribe(data => {
       this.userComments = data;
-      this.userComments = this.userComments.filter(this.userInfo.user_id);
+      this.userComments.reverse(); // get newest on top
     });
+  }
+
+  getUserUploads() {
+    this.userUploads = [];
+    this.mediaProvider.getPostsByUser(this.userInfo.user_id).subscribe(data => {
+      this.userUploads = data;
+      this.userUploads.reverse(); // get newest on top
+    })
   }
 
   logout() {
     localStorage.removeItem('token');
+    // empty usercomments and uploads when logging out
+    this.userComments = [];
+    this.userUploads = [];
     this.profilePageLoad();
   }
 

@@ -4,15 +4,26 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+  <div class="flb">
+    <div class="Aligner-item Aligner-item--top"></div>
+    <img src="assets/imgs/logomini.png" alt="GEOPIC">
+    <div class="Aligner-item Aligner-item--bottom"></div>
+  </div>
+</div>
+
 <ion-header>
 
   <ion-navbar>
-    <ion-title>map-page</ion-title>
+    <ion-title>
+      <img class="title-image" alt="logo" height="40"   src="assets/imgs/geopicText.png">
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <div id="map_canvas"></div>
 </ion-content>
