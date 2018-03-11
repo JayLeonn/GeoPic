@@ -73,6 +73,7 @@ export class SinglePage {
   }
 
   getMedia(){
+    this.commentsLoaded = false;
 
     this.mediaProvider.getSingleMedia(this.mediaID).
     subscribe(response => {
@@ -120,6 +121,8 @@ export class SinglePage {
 
         this.commentArray['user_id'];
 
+        if (this.commentArray.length != 0){
+
         this.commentArray.map(com => {
 
           this.mediaProvider.getUserNameById(com.user_id, localStorage.getItem('token')).subscribe(response => {
@@ -133,6 +136,9 @@ export class SinglePage {
 
           });
           });
+        } else {
+          this.countFavourites();
+        }
       });
   }
 
