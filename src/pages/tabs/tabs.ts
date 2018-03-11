@@ -10,11 +10,10 @@ import { MapPage } from '../map/map';
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
+  tab1Root = MapPage;
   tab2Root = UploadPage;
   tab3Root = ProfilePage;
-  tab4Root = MapPage;
-
+  tab4Root = HomePage;
   constructor() {
 
   }

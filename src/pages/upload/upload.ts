@@ -32,6 +32,8 @@ import {
 
 export class UploadPage {
 
+
+
   ionViewDidLoad() {
     this.form = <HTMLFormElement>document.getElementById('uploadForm'); // we need to cast it like this: https://stackoverflow.com/questions/29983341/typescript-form-reset-not-working
   }
@@ -87,6 +89,7 @@ export class UploadPage {
     }
   }
 
+
   // this method converts EXIF location data to decimal values that we can use in google maps
   degreesToDecimals(deg: Array<number>): number {
     return deg[0]['numerator'] + deg[1]['numerator'] /
@@ -131,7 +134,7 @@ export class UploadPage {
           });
       });
 
-      
+
   }
 
   getFile(){
@@ -141,13 +144,13 @@ export class UploadPage {
   upload() {
 
     const formData = new FormData();
-    
+
     // add title and description to FormData object
     formData.append('title', this.media.title);
 
     // add latitude and longitude before real description
     formData.append('description', this.lat + '|' + this.lon + '|' + this.media.description);
-   
+
     // add file to FormData object
     formData.append('file', this.file);
     // send FormData object to API
@@ -210,7 +213,7 @@ export class UploadPage {
     this.loader = this.loadingCtrl.create({
       content: 'Uploading, please wait...',
     });
-  
+
     this.loader.present().then(() => {
       this.upload();
     });
