@@ -18,6 +18,10 @@
     </ion-card-content>
 
     <ion-card-content>
+      <div class="button">LIKES {{likeCount}}</div>
+    </ion-card-content>
+
+    <ion-card-content>
       <h6>{{ description }}</h6>
     </ion-card-content>
 
@@ -26,13 +30,13 @@
     </ion-card-content>
 
     <ion-card-content>
-      <ion-list *ngIf="commentsLoaded">
-        <ion-card *ngFor="let comment of commentArray" class="commentcard">
+      <ion-list>
+        <div *ngIf="commentsLoaded">
+        <ion-card *ngFor="let comment of this.commentArray" class="commentcard">
           <p class="commentergit">{{comment.user.username}}</p>
           <p class="comment">{{comment.comment}}</p>
-
         </ion-card>
-
+        </div>
       </ion-list>
     </ion-card-content>
 

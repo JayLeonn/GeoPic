@@ -7,6 +7,7 @@ import {Comment} from "../../app/Interfaces/comment";
 import {HomePage} from "../home/home";
 import {debugOutputAstAsTypeScript} from "@angular/compiler";
 import {update} from "ionic-angular/umd/components/slides/swiper/swiper";
+import set = Reflect.set;
 
 /**
  * Generated class for the SinglePage page.
@@ -29,18 +30,19 @@ export class SinglePage {
   url: string;
   title: string;
   description: string;
+  userId: number;
+  fileId: number;
+  username: string;
   tags = '';
   commentArray: any;
   commentguy: any;
   comment: string;
   mediaID = this.navParams.get('mediaID');
-  currentMediaId: string;
   currentUserName: string;
 
   commentsLoaded: boolean;
 
-  i = 0;
-  y = 0;
+  likeCount = 0;
 
   userInfo: any = '';
 
@@ -65,38 +67,47 @@ export class SinglePage {
     console.log(this.commentsLoaded + '1');
     console.log('ionViewDidLoad SinglePage');
     console.log(this.mediaID);
-    this.loadcomments();
+    this.getMedia();
     this.currentUser();
-    this.countFavourites();
+
   }
 
   getMedia(){
+
     this.mediaProvider.getSingleMedia(this.mediaID).
     subscribe(response => {
-      console.log(response);
+      //console.log(response);
       this.url = this.mediaProvider.mediaURL + response['filename'];
       this.title = response['title'];
       this.description = response ['description'];
+      this.userId = response ['user_id'];
+      this.fileId = response['file_id']
 
-      console.log(response['file_id']);
 
-      this.mediaProvider.getTagByFile(response['file_id']).
-      subscribe(response => {
-        console.log(response);
-        this.commentsLoaded = true;
+      this.mediaProvider.getUserNameById(this.userId, localStorage.getItem('token'))
+        .subscribe( result => {
+          this.username = result['username'];
 
-        if (response.length === 0) this.tags = 'No tags';
+          this.mediaProvider.getTagByFile(this.fileId).
+          subscribe(response => {
+            //console.log(response);
 
-        response.forEach(t => {
-          //const tag = JSON.parse(t['tag']);
-          console.log(t['tag']);
-          this.tags = t['tag'];
+            this.loadcomments();
+
+            if (response.length === 0) this.tags = 'No tags';
+
+            response.forEach(t => {
+              //const tag = JSON.parse(t['tag']);
+              console.log(t['tag']);
+              this.tags = t['tag'];
+            });
+          });
+
+        }, (error: HttpErrorResponse) => {
+          console.log(error);
         });
-      });
 
-    }, (error: HttpErrorResponse) => {
-      console.log(error);
-    });
+        });
 
   }
 
@@ -107,8 +118,7 @@ export class SinglePage {
         console.log(data);
         this.commentArray = data;
 
-        console.log('before '+this.i);
-        console.log(this.commentArray);
+        this.commentArray['user_id'];
 
         this.commentArray.map(com => {
 
@@ -116,14 +126,14 @@ export class SinglePage {
 
             com.user = response;
 
-            this.getMedia();
+            console.log(com.user['username']);
+
+            this.countFavourites();
+
 
           });
-
-        });
+          });
       });
-      this.i++;
-      console.log('after '+this.i)
   }
 
   pushComment(){
@@ -134,8 +144,9 @@ export class SinglePage {
       .subscribe(response => {
         console.log(response);
         console.log(this.commentData);
+        this.getMedia();
       });
-    this.loadcomments();
+
     }
 
   currentUser() {
@@ -145,7 +156,6 @@ export class SinglePage {
 
         this.currentUserName = user['username'];
 
-        console.log(this.currentMediaId);
         }, (getUserError: HttpErrorResponse) => {
         console.log(getUserError);
       }
@@ -155,14 +165,15 @@ export class SinglePage {
   addToFavourites (id) {
 
     const file_id = {
-      mediaID: id
+      file_id: id
     };
 
     console.log(file_id);
 
-    this.mediaProvider.favouriteThis(this.mediaID, localStorage.getItem('token'))
+    this.mediaProvider.favouriteThis(file_id, localStorage.getItem('token'))
       .subscribe( favourite => {
         console.log(favourite);
+        this.getMedia();
       },(error: HttpErrorResponse) => {
         console.log(error);
       });
@@ -173,7 +184,10 @@ export class SinglePage {
     this.mediaProvider.getLikes(this.mediaID)
       .subscribe( favouriteCount => {
 
-        console.log(favouriteCount);
+        this.likeCount = Object.keys(favouriteCount).length;
+
+        this.commentsLoaded = true;
+        console.log('likes ' + this.likeCount);
 
         });
   }
