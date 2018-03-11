@@ -5,6 +5,7 @@ import {HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {MediaProvider} from "../../providers/media/media";
 import {HomePage} from "../home/home";
 import {User} from "../../app/Interfaces/user";
+import {SinglePage} from "../single/single";
 
 /**
  * Generated class for the ProfilePage page.
@@ -77,6 +78,12 @@ export class ProfilePage {
       this.title = 'Login - Sign Up';
       this.loggedout = true;
     }
+  }
+
+  openSingle(id) {
+    this.navCtrl.push(SinglePage, {
+      mediaID: id,
+    });
   }
 
   getUserComments() {
