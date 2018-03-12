@@ -9,6 +9,7 @@ import {debugOutputAstAsTypeScript} from "@angular/compiler";
 import {update} from "ionic-angular/umd/components/slides/swiper/swiper";
 import set = Reflect.set;
 import {CoordinatesPipe} from "../../pipes/coordinates/coordinates";
+import {AboutPage} from "../about/about";
 
 /**
  * Generated class for the SinglePage page.
@@ -32,6 +33,7 @@ export class SinglePage {
   title: string;
   description: string;
   userId: number;
+  myId: number;
   fileId: number;
   username: string;
   tags: any;
@@ -40,6 +42,8 @@ export class SinglePage {
   comment: string;
   mediaID = this.navParams.get('mediaID');
   currentUserName: string;
+  likeInfo = '';
+  liked: boolean;
 
   commentsLoaded: boolean;
 
@@ -52,7 +56,8 @@ export class SinglePage {
   });
 
   constructor(
-    public navCtrl: NavController, public navParams: NavParams,
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public mediaProvider: MediaProvider,
     private photoViewer: PhotoViewer,
     private loadingCtrl: LoadingController,
@@ -71,11 +76,11 @@ export class SinglePage {
     console.log(this.mediaID);
     this.getMedia();
     this.currentUser();
-
   }
 
   getMedia(){
     this.commentsLoaded = false;
+    this.liked = false;
 
     this.mediaProvider.getSingleMedia(this.mediaID).
     subscribe(response => {
@@ -176,6 +181,7 @@ export class SinglePage {
       .subscribe(user => {
 
         this.currentUserName = user['username'];
+        this.myId = user['user_id'];
 
         }, (getUserError: HttpErrorResponse) => {
         console.log(getUserError);
@@ -193,13 +199,45 @@ export class SinglePage {
 
     this.mediaProvider.favouriteThis(file_id, localStorage.getItem('token'))
       .subscribe( favourite => {
-        console.log(favourite);
         this.countFavourites();
-        this.getMedia();
+        this.liked = true;
+        console.log(favourite);
       },(error: HttpErrorResponse) => {
+        this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
+          .subscribe( data => {
+            this.countFavourites();
+            this.liked = false;
+            console.log(data);
+          }, (error: HttpErrorResponse) => {
+            this.countFavourites();
+            console.log(error);
+          });
         console.log(error);
       });
 
+
+    /*
+    if (this.liked){
+      this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
+        .subscribe( data => {
+          this.countFavourites();
+          this.liked = false;
+          console.log(data);
+        }, (error: HttpErrorResponse) => {
+          this.countFavourites();
+          console.log(error);
+          });
+    } else {
+    this.mediaProvider.favouriteThis(file_id, localStorage.getItem('token'))
+      .subscribe( favourite => {
+        this.countFavourites();
+        this.liked = true;
+        console.log(favourite);
+      },(error: HttpErrorResponse) => {
+        this.countFavourites();
+        console.log(error);
+      });
+    } */
   }
 
   countFavourites () {
@@ -208,10 +246,33 @@ export class SinglePage {
 
         this.likeCount = Object.keys(favouriteCount).length;
 
+        if(this.likeCount === 0) {
+          this.likeInfo = ' , you don´t like this';
+          this.liked = false;
+        }
+
+        console.log(favouriteCount);
+        console.log(this.userId);
         this.commentsLoaded = true;
         console.log('likes ' + this.likeCount);
 
+        // gets array of likes and checks if current user is among them
+          for (let i = 0; i < this.likeCount; i++){
+            if (favouriteCount[i].user_id === this.myId) {
+              this.likeInfo = ' , you like this';
+              this.liked = true;
+            } else {
+              this.likeInfo = ' , you don´t like this';
+              this.liked = false;
+            }
+        }
         });
+  }
+
+  openByTag(tag) {
+    this.navCtrl.push(AboutPage, {
+      tag: tag,
+    });
   }
 
 }

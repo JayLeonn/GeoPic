@@ -16,7 +16,7 @@
 
     <ion-card-content class="likes">
       <button (click)="addToFavourites(mediaID)" id="heart"></button>
-      <div class="likecount"><h1>{{likeCount}}</h1></div>
+      <div class="likecount"><h1>{{likeCount}}{{likeInfo}}</h1></div>
     </ion-card-content>
 
     <ion-card-content *ngIf="commentsLoaded">
@@ -26,7 +26,7 @@
 
     <ion-card-content class="taglistwrapper">
       <ion-list class="taglist" *ngFor="let tag of tags">
-      <p class="tag" *ngIf="tags !== ''">{{ tag.tag }}</p>
+      <p class="tag" *ngIf="tags !== ''" (click)="openByTag(tag.tag)">{{ tag.tag }}</p>
       </ion-list>
     </ion-card-content>
 
