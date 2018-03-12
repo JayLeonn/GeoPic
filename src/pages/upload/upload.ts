@@ -31,7 +31,7 @@ import {
 
 
 export class UploadPage {
-
+  buttonColor: string = "#000";
 
 
   ionViewDidLoad() {
@@ -205,6 +205,7 @@ export class UploadPage {
   addTag() {
     this.tags.push(this.newTag);
     this.newTag = '';
+    this.buttonColor = "#fff";
   }
 
   removeTag(index) {

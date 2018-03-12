@@ -19,10 +19,13 @@ page-profile {
     color: white;
     padding: 15px 32px;
     margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
   }
   h5{
     text-decoration: underline;
@@ -34,6 +37,13 @@ page-profile {
   }
   h1{
     color: white;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0px !important;
+  }
+
+  h2{
+    text-align: center;
   }
   .errormessage{
     background-color: $dark;
