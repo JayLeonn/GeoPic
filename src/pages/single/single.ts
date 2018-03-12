@@ -205,12 +205,14 @@ export class SinglePage {
         this.countFavourites();
       },(error: HttpErrorResponse) => {
         console.log(error);
+        this.countFavourites();
         this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
           .subscribe( data => {
             console.log(data);
             this.countFavourites();
           });
       });
+    this.countFavourites();
 
   }
 
