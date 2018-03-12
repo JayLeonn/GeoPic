@@ -47,6 +47,9 @@ export class ProfilePage {
   loginErrorBoolean: boolean;
   succesfulSignUp: boolean;
 
+  uploadsStatus = true;
+  commentsStatus = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider, private pipe: CoordinatesPipe) {
   }
 
@@ -67,6 +70,7 @@ export class ProfilePage {
           this.userInfo = data;
           this.currentUser = data['username'];
           console.log(this.userInfo);
+          this.getUserUploads();
         });
         this.loggedout = false;
       } catch(e) {
@@ -87,7 +91,18 @@ export class ProfilePage {
   }
 
   getUserComments() {
-    this.userComments = [];
+    //this.userComments = [];
+    if (this.uploadsStatus == true) {
+      this.uploadsStatus = false;
+      this.commentsStatus = true;
+
+      document.getElementById('uploads').classList.remove('active');
+      document.getElementById('uploads').classList.add('inactive');
+
+      document.getElementById('comments').classList.add('active');
+      document.getElementById('comments').classList.remove('inactive');
+    }
+
     this.mediaProvider.getAllComments(localStorage.getItem('token')).subscribe(data => {
       this.userComments = data;
       this.userComments.reverse(); // get newest on top
@@ -95,11 +110,22 @@ export class ProfilePage {
   }
 
   getUserUploads() {
-    this.userUploads = [];
+    //this.userUploads = [];
+    if (this.commentsStatus == true) {
+      this.commentsStatus = false;
+      this.uploadsStatus = true;
+
+      document.getElementById('uploads').classList.add('active');
+      document.getElementById('uploads').classList.remove('inactive');
+
+      document.getElementById('comments').classList.add('inactive');
+      document.getElementById('comments').classList.remove('active');
+    }
+
     this.mediaProvider.getPostsByUser(this.userInfo.user_id).subscribe(data => {
       this.userUploads = data;
       this.userUploads.reverse(); // get newest on top
-    })
+    });
   }
 
   logout() {

@@ -74,13 +74,18 @@
     <h1>{{ currentUser }}</h1>
     <h2>Statistics</h2>
 
-    <button ion-button full class="button" primary block  (click)="getUserComments()" color="button">Fetch comments</button>
-    <ion-list>
+    <button ion-button full class="button" primary block  (click)="logout()" color="button">Log out</button>
+
+    <div class="buttons">
+      <button ion-button id="uploads" class="button active" primary block (click)="getUserUploads()" color="button">Uploads</button>
+      <button ion-button id="comments" class="button inactive" primary block (click)="getUserComments()" color="button">Comments</button>
+    </div>
+
+    <ion-list *ngIf="this.commentsStatus">
       <h2 (click)="openSingle(comment.file_id)" *ngFor="let comment of userComments"> {{ comment.comment }}</h2>
     </ion-list>
 
-    <button ion-button full class="button" primary block  (click)="getUserUploads()" color="button">Fetch uploads</button>
-    <ion-list>
+    <ion-list *ngIf="this.uploadsStatus">
       <ion-card (click)="openSingle(post.file_id)" *ngFor="let post of userUploads">
         <img [alt]="post.title" [src]="mediaProvider.mediaURL + (post.filename | thumbnail: 'small')">
         <ion-card-content>
@@ -94,6 +99,5 @@
       </ion-card>
     </ion-list>
 
-    <button ion-button full class="button" primary block  (click)="logout()" color="button">Log out</button>
   </div>
 </ion-content>
