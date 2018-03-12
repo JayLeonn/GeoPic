@@ -71,11 +71,11 @@
   </ion-content>
 
   <div class="user-profile" *ngIf="!loggedout">
-    <h1>You are logged in as: {{ currentUser }}</h1>
+    <h1>{{ currentUser }}</h1>
+    <h2>Statistics</h2>
 
     <button ion-button full class="button" primary block  (click)="getUserComments()" color="button">Fetch comments</button>
     <ion-list>
-      <h1>Comments</h1>
       <h2 (click)="openSingle(comment.file_id)" *ngFor="let comment of userComments"> {{ comment.comment }}</h2>
     </ion-list>
 
@@ -96,5 +96,4 @@
 
     <button ion-button full class="button" primary block  (click)="logout()" color="button">Log out</button>
   </div>
-
 </ion-content>
