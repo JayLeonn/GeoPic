@@ -19,6 +19,7 @@ page-profile {
     color: white;
     padding: 15px 32px;
     margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -36,6 +37,13 @@ page-profile {
   }
   h1{
     color: white;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0px !important;
+  }
+
+  h2{
+    text-align: center;
   }
   .errormessage{
     background-color: $dark;
@@ -51,5 +59,9 @@ page-profile {
   }
   h6{
     margin-top: 0px !important;
+  }
+
+  .logout{
+    bottom: 0 !important;
   }
 }
