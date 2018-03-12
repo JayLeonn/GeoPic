@@ -188,9 +188,9 @@ export class UploadPage {
 
       //console.log('after' + formData);
 
-      if(document.getElementById('upload_map').firstChild) {
+      /*if(document.getElementById('upload_map').firstChild) {
         this.map.destroy(); // destroy map after succesfull upload
-      }
+      }*/
 
       this.locationFound = false; // close the google map preview
       this.form.reset(); // reset form for next upload
