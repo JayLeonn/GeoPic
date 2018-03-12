@@ -183,7 +183,7 @@ export class UploadPage {
       this.tags = [];
 
       this.loader.dismiss();
-      this.navCtrl.parent.select(0); // navigate to homepage
+      //this.navCtrl.parent.select(0); // navigate to homepage
 
       //console.log('after' + formData);
 
@@ -193,6 +193,8 @@ export class UploadPage {
 
       this.locationFound = false; // close the google map preview
       this.form.reset(); // reset form for next upload
+
+      alert('Picture uploaded succesfully!');
 
     }, (e: HttpErrorResponse) => {
       this.loader.dismiss();

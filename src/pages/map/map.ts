@@ -2,6 +2,7 @@ import { CoordinatesPipe } from './../../pipes/coordinates/coordinates';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MediaProvider } from '../../providers/media/media';
+declare let google: any;
 
 import {
   GoogleMaps,
@@ -35,6 +36,8 @@ export class MapPage {
   splash = true;
   tabBarElement: any;
 
+  firstTimeLoad = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider, private coordinatePipe: CoordinatesPipe) {
     this.tabBarElement = document.querySelector('.tabbar');
   }
@@ -46,12 +49,21 @@ export class MapPage {
       this.tabBarElement.style.display = 'flex';
     }, 4000);
     this.loadMap();
-    this.mediaProvider.setMapBackgroundColor();
+    console.log('didload');
   }
 
   ionViewWillEnter() {
-    this.map.addMarker(null);
-    this.putMarkers();
+    console.log('viewwillenter');
+    if(this.firstTimeLoad) {
+      const div = this.map.getDiv();
+      console.log(div);
+      this.map.setDiv(null);
+      this.map.setDiv(div);
+      this.map.addMarker(null);
+      this.putMarkers();
+    }
+    //this.loadMap();
+    //this.mediaProvider.setMapBackgroundColor();
   }
 
   putMarkers() {
@@ -90,6 +102,8 @@ export class MapPage {
               this.openSingle(marker.get('post_id'));
             });
         });
+
+        //console.log(this.posts[i]);
       }
 
     });
@@ -110,11 +124,13 @@ export class MapPage {
     };
 
     this.map = GoogleMaps.create(map_div, mapOptions);
-    this.map.set
+
+    this.mediaProvider.setMapBackgroundColor();
 
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
+        this.firstTimeLoad = true;
 
         this.putMarkers();
         //console.log('Map is ready!');
