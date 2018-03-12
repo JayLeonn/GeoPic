@@ -9,6 +9,7 @@ import {debugOutputAstAsTypeScript} from "@angular/compiler";
 import {update} from "ionic-angular/umd/components/slides/swiper/swiper";
 import set = Reflect.set;
 import {CoordinatesPipe} from "../../pipes/coordinates/coordinates";
+import {AboutPage} from "../about/about";
 
 /**
  * Generated class for the SinglePage page.
@@ -32,6 +33,7 @@ export class SinglePage {
   title: string;
   description: string;
   userId: number;
+  myId: number;
   fileId: number;
   username: string;
   tags: any;
@@ -40,6 +42,7 @@ export class SinglePage {
   comment: string;
   mediaID = this.navParams.get('mediaID');
   currentUserName: string;
+  likeInfo = '';
 
   commentsLoaded: boolean;
 
@@ -52,7 +55,8 @@ export class SinglePage {
   });
 
   constructor(
-    public navCtrl: NavController, public navParams: NavParams,
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public mediaProvider: MediaProvider,
     private photoViewer: PhotoViewer,
     private loadingCtrl: LoadingController,
@@ -176,6 +180,7 @@ export class SinglePage {
       .subscribe(user => {
 
         this.currentUserName = user['username'];
+        this.myId = user['user_id'];
 
         }, (getUserError: HttpErrorResponse) => {
         console.log(getUserError);
@@ -188,6 +193,8 @@ export class SinglePage {
     const file_id = {
       file_id: id
     };
+    this.countFavourites();
+
 
     console.log(file_id);
 
@@ -195,7 +202,6 @@ export class SinglePage {
       .subscribe( favourite => {
         console.log(favourite);
         this.countFavourites();
-        this.getMedia();
       },(error: HttpErrorResponse) => {
         console.log(error);
       });
@@ -208,10 +214,24 @@ export class SinglePage {
 
         this.likeCount = Object.keys(favouriteCount).length;
 
+        console.log(favouriteCount);
+        console.log(this.userId);
         this.commentsLoaded = true;
         console.log('likes ' + this.likeCount);
 
+
+          for (let i = 0; i < this.likeCount; i++){
+            if (favouriteCount[i].user_id === this.myId) {
+              this.likeInfo = 'You like this'
+            }
+        }
         });
+  }
+
+  openByTag(tag) {
+    this.navCtrl.push(AboutPage, {
+      tag: tag,
+    });
   }
 
 }
