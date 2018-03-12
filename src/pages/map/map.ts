@@ -12,6 +12,7 @@ import {
   MarkerOptions,
   Marker
  } from '@ionic-native/google-maps';
+import { SinglePage } from '../single/single';
 
 /**
  * Generated class for the MapPage page.
@@ -61,9 +62,17 @@ export class MapPage {
       for(var i = 0; i < this.posts.length; i++) {
         //this.getLatLon(this.posts[i].file_id);
 
+        var mapIcon = {
+          url: 'http://media.mw.metropolia.fi/wbma/uploads/' + this.posts[i].filename,
+          size: {
+            width: 60,
+            height: 60
+          }
+        }
+
         let mapMarker: MarkerOptions = {
           title: this.posts[i].title,
-          icon: 'blue',
+          icon: mapIcon,
           map: this.map,
           post_id: this.posts[i].file_id,
           position:  {
@@ -78,6 +87,7 @@ export class MapPage {
           marker.on(GoogleMapsEvent.MARKER_CLICK)
             .subscribe(() => {
               console.log(marker.get('post_id'));
+              this.openSingle(marker.get('post_id'));
             });
         });
       }
@@ -129,6 +139,12 @@ export class MapPage {
           });
           */
       });
+  }
+
+  openSingle(id) {
+    this.navCtrl.push(SinglePage, {
+      mediaID: id,
+    });
   }
 
 }

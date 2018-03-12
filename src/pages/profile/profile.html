@@ -7,7 +7,9 @@
 <ion-header>
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <ion-navbar>
-    <ion-title>{{ title }}</ion-title>
+    <ion-title>
+      <img class="title-image" alt="logo" height="40"   src="assets/imgs/geopicText.png">
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -37,6 +39,7 @@
 
     </ion-list>
     <h5 (click)="onButtonClick()">Or Sign Up Here!</h5>
+
     <ion-list id="signup" *ngIf="buttonClicked">
       <ion-item class="ProfilePage">
         <ion-label floating color="light">Username</ion-label>
@@ -90,7 +93,7 @@
         </ion-card-content>
       </ion-card>
     </ion-list>
-    
+
     <button ion-button full class="button" primary block  (click)="logout()" color="button">Log out</button>
   </div>
 
