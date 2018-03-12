@@ -43,6 +43,7 @@ export class SinglePage {
   mediaID = this.navParams.get('mediaID');
   currentUserName: string;
   likeInfo = '';
+  liked: boolean;
 
   commentsLoaded: boolean;
 
@@ -204,6 +205,11 @@ export class SinglePage {
         this.countFavourites();
       },(error: HttpErrorResponse) => {
         console.log(error);
+        this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
+          .subscribe( data => {
+            console.log(data);
+            this.countFavourites();
+          });
       });
 
   }
@@ -219,10 +225,13 @@ export class SinglePage {
         this.commentsLoaded = true;
         console.log('likes ' + this.likeCount);
 
-
           for (let i = 0; i < this.likeCount; i++){
             if (favouriteCount[i].user_id === this.myId) {
-              this.likeInfo = 'You like this'
+              this.likeInfo = ' , you like this';
+              this.liked = true;
+            } else {
+              this.likeInfo = ' , you don´t like this';
+              this.liked = false;
             }
         }
         });
