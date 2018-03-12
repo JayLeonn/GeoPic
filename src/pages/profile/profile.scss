@@ -23,6 +23,8 @@ page-profile {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
   }
   h5{
     text-decoration: underline;
