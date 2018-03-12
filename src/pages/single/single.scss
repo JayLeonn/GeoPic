@@ -1,28 +1,168 @@
 page-single {
 
-  .commentcard {
+  ion-card {
+    background-color: $dark !important;
+    -moz-box-shadow: 0 0 3px #ccc !important;
+    -webkit-box-shadow: 0 0 3px #ccc !important;
+    box-shadow: 0 0 3px #ccc !important;
+  }
 
+  .commentcard {
+    padding: 5%;
+    background-color: $dark !important;
+    color: white;
+    -moz-box-shadow: 0 0 3px #ccc;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 3px #ccc;
   }
 
   .commenter {
-
+    font-weight: bold;
+    color: $button;
   }
 
   .comment {
+    color: white;
+  }
+
+  .commentfield {
+    float:left;
+    display:inline;
+    width: 100%;
+    height: 87px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+    bottom: 0;
+    left: 0;
+  }
+
+  .likes {
+    display: flex;
+    width: 100%;
 
   }
+
+  .likebutton {
+    background-color: $button;
+    border: none;
+    color: white;
+    padding: 7px 16px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-right: 5px;
+  }
+
+  .likecount {
+    float: right;
+    right: 0;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 15px;
+    margin-left: 15px;
+    color: white;
+  }
+
+  .description {
+    color: white;
+
+  }
+
 
   .button {
     background-color: $button;
     border: none;
     color: white;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
-    margin-top: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
+    float:left;
+    display:inline;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    height: 48px;
   }
+
+  h1 {
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+
+  }
+
+  h2 {
+    float: left;
+    width: 100%;
+    color: white;
+
+  }
+
+  .taglistwrapper{
+    display: flex;
+    justify-content: center;
+  }
+
+  .taglist{
+    text-transform: uppercase;
+  }
+
+  .tag{
+    background-color: $dark;
+    display: inline-block;
+    color: $button;
+    padding: 7px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: groove $button 2px;
+    margin-right: 2px;
+    margin-left: 2px;
+  }
+
+  #heart {
+    position:relative;
+    width: 50px;
+    height: 45px;
+    top:10px;
+    opacity: 1;
+    background-color: $dark;
+  }
+
+  #heart:before, #heart:after {
+    position: absolute;
+    content: "";
+    left: 25px;
+    top: 0;
+    width: 26px;
+    height: 40px;
+    background: red;
+    border-radius: 25px 25px 0 0;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform-origin: 0 100%;
+    -moz-transform-origin: 0 100%;
+    -ms-transform-origin: 0 100%;
+    -o-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+  }
+
+  #heart:after {
+    left: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: 100% 100%;
+    -moz-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    -o-transform-origin: 100% 100%;
+    transform-origin :100% 100%;
+  }
+
 
 }

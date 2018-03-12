@@ -37,7 +37,7 @@ export class HomePage {
 
 
   loadmedia() {
-    this.mediaProvider.getMedia().subscribe(data => {
+    this.mediaProvider.getPostsByTag('geopic').subscribe(data => {
       console.log(data);
       this.mediaArray = data;
 

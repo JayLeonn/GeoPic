@@ -8,6 +8,7 @@ import {HomePage} from "../home/home";
 import {debugOutputAstAsTypeScript} from "@angular/compiler";
 import {update} from "ionic-angular/umd/components/slides/swiper/swiper";
 import set = Reflect.set;
+import {CoordinatesPipe} from "../../pipes/coordinates/coordinates";
 
 /**
  * Generated class for the SinglePage page.
@@ -33,7 +34,7 @@ export class SinglePage {
   userId: number;
   fileId: number;
   username: string;
-  tags = '';
+  tags: any;
   commentArray: any;
   commentguy: any;
   comment: string;
@@ -54,11 +55,12 @@ export class SinglePage {
     public navCtrl: NavController, public navParams: NavParams,
     public mediaProvider: MediaProvider,
     private photoViewer: PhotoViewer,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    private pipe: CoordinatesPipe) {
   }
 
   showImage() {
-    this.photoViewer.show(this.url, this.title, {share: false});
+    this.photoViewer.show(this.url, this.title, {share: true});
   }
 
 
@@ -77,7 +79,7 @@ export class SinglePage {
 
     this.mediaProvider.getSingleMedia(this.mediaID).
     subscribe(response => {
-      //console.log(response);
+      console.log(response);
       this.url = this.mediaProvider.mediaURL + response['filename'];
       this.title = response['title'];
       this.description = response ['description'];
@@ -94,14 +96,26 @@ export class SinglePage {
             //console.log(response);
 
             this.loadcomments();
+            console.log(response[0]);
 
-            if (response.length === 0) this.tags = 'No tags';
+            if (response.length === 0) {
+              this.tags = 'No tags';
+            } else {
+              this.tags = response;
+              for (let i = 0; i < this.tags.length; i++){
+                if (this.tags[i].tag === 'geopic') {
+                  this.tags.splice(i, 1);
+                }
 
-            response.forEach(t => {
+              }
+              console.log(this.tags);
+            }
+
+            /*response.forEach(t => {
               //const tag = JSON.parse(t['tag']);
               console.log(t['tag']);
               this.tags = t['tag'];
-            });
+            }); */
           });
 
         }, (error: HttpErrorResponse) => {
@@ -150,6 +164,7 @@ export class SinglePage {
       .subscribe(response => {
         console.log(response);
         console.log(this.commentData);
+        document.getElementById('comment').innerText = '';
         this.getMedia();
       });
 
@@ -179,6 +194,7 @@ export class SinglePage {
     this.mediaProvider.favouriteThis(file_id, localStorage.getItem('token'))
       .subscribe( favourite => {
         console.log(favourite);
+        this.countFavourites();
         this.getMedia();
       },(error: HttpErrorResponse) => {
         console.log(error);
