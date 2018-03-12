@@ -1,6 +1,6 @@
 # GeoPic
 
---gif of app here--
+![GeoPic](https://media.giphy.com/media/1wpOo7bRazya58qvfQ/giphy.gif)
 
 A school project of a hybrid android application meant for sharing and browsing of different kinds of pictures around the world. The application has a map which allows you to browse any pictures taken around the world, like and comment them or upload your own pictures.
 
