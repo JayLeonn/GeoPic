@@ -82,7 +82,9 @@
     </div>
 
     <ion-list *ngIf="this.commentsStatus">
-      <h2 (click)="openSingle(comment.file_id)" *ngFor="let comment of userComments"> {{ comment.comment }}</h2>
+      <ion-card *ngFor="let comment of userComments" class="commentcard">
+       <h2 class="comment" (click)="openSingle(comment.file_id)"> {{ comment.comment }}</h2>
+      </ion-card>
     </ion-list>
 
     <ion-list *ngIf="this.uploadsStatus">

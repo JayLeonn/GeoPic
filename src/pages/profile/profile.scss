@@ -79,4 +79,17 @@ page-profile {
   h6{
     margin-top: 0px !important;
   }
+
+  .commentcard {
+    padding: 5%;
+    background-color: $dark !important;
+    color: white;
+    -moz-box-shadow: 0 0 3px #ccc;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 3px #ccc;
+  }
+
+  .comment {
+    color: white;
+  }
 }

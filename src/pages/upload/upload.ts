@@ -77,11 +77,12 @@ export class UploadPage {
           this.lat = this.degreesToDecimals(EXIF.getTag(img, 'GPSLatitude'));
           this.lon = this.degreesToDecimals(EXIF.getTag(img, 'GPSLongitude'));
 
-          console.log(this.lat);
-          console.log(this.lon);
-          this.showPosition(this.lat, this.lon);
+          //console.log(this.lat);
+          //console.log(this.lon);
+          //this.showPosition(this.lat, this.lon);
+          alert('File fetched succesfully!');
         } else {
-          alert('No GPS data found from image');
+          alert('No GPS data found from image, please choose another one!');
         }
       });
     } catch (e) {
@@ -198,6 +199,7 @@ export class UploadPage {
 
     }, (e: HttpErrorResponse) => {
       this.loader.dismiss();
+      alert('Something went wrong, please make sure you are logged in and the filesize is less than 5Mb!')
       console.log(e);
     });
   }

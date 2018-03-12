@@ -15,40 +15,42 @@
 </ion-header>
 
 <ion-content padding class="uploadpage">
-<div class="padding">
-  <form id="uploadForm">
+  <div class="padding">
+    <form id="uploadForm">
 
-    <input type="file" name="file" id="file" class="inputfile"  (change)="setFile($event)"/>
-    <label for="file">Choose a file</label>
+      <input type="file" name="file" id="file" class="inputfile"  (change)="setFile($event)"/>
+      <label for="file">Choose a file</label>
 
-    <ion-item class="uploadpage">
-      <ion-label color="light" floating>Title</ion-label>
-      <ion-input [(ngModel)]="media.title" type="text" name="title" required></ion-input>
-    </ion-item>
+      <ion-item class="uploadpage">
+        <ion-label color="light" floating>Title</ion-label>
+        <ion-input [(ngModel)]="media.title" type="text" name="title" required></ion-input>
+      </ion-item>
 
-    <ion-item class="uploadpage">
-      <ion-label color="light" floating>Description</ion-label>
-      <ion-textarea [(ngModel)]="media.description" type="text" name="description"></ion-textarea>
-    </ion-item>
+      <ion-item class="uploadpage">
+        <ion-label color="light" floating>Description</ion-label>
+        <ion-textarea [(ngModel)]="media.description" type="text" name="description"></ion-textarea>
+      </ion-item>
 
-    <ion-item class="uploadpage">
-      <ion-label color="light" floating>Tags</ion-label>
-      <ion-textarea [(ngModel)]="newTag" type="text" name="tag"></ion-textarea>
-    </ion-item>
-    <div class="taglistwrapper">
-    <ion-list class="taglist" *ngFor="let tag of tags; let i = index">
-      <li class="tag"(click)="removeTag(i)">{{ tag }}<span style="color:red"> ✖</span></li>
-    </ion-list>
-    </div>
-    <div class="buttons">
-      <button ion-button full primary block class="button" (click)="addTag()">Add tag</button>
-      <button ion-button full primary block class="button" id="uploadbutton" type="submit" (click)="startUpload()">Upload</button>
-    </div>
+      <ion-item class="uploadpage">
+        <ion-label color="light" floating>Tags</ion-label>
+        <ion-textarea [(ngModel)]="newTag" type="text" name="tag"></ion-textarea>
+      </ion-item>
+      <div class="taglistwrapper">
+      <ion-list class="taglist" *ngFor="let tag of tags; let i = index">
+        <li class="tag"(click)="removeTag(i)">{{ tag }}<span style="color:red"> ✖</span></li>
+      </ion-list>
+      </div>
+      <div class="buttons">
+        <button ion-button full primary block class="button" (click)="addTag()">Add tag</button>
+        <button ion-button full primary block class="button" id="uploadbutton" type="submit" (click)="startUpload()">Upload</button>
+      </div>
 
-  </form>
-</div>
+    </form>
+  </div>
 
+  <!--
   <h1 *ngIf="locationFound">Picture location</h1>
   <div style="width: 100%; height: 300px;" id="upload_map"></div>
+  -->
 
 </ion-content>

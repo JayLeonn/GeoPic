@@ -47,7 +47,7 @@ export class SinglePage {
 
   commentsLoaded: boolean;
 
-  likeCount = 0;
+  likeCount: any = 0;
 
   userInfo: any = '';
 
@@ -71,7 +71,7 @@ export class SinglePage {
 
 
   ionViewDidLoad() {
-    console.log(this.commentsLoaded + '1');
+    console.log(this.commentsLoaded);
     console.log('ionViewDidLoad SinglePage');
     console.log(this.mediaID);
     this.getMedia();
@@ -89,7 +89,7 @@ export class SinglePage {
       this.title = response['title'];
       this.description = response ['description'];
       this.userId = response ['user_id'];
-      this.fileId = response['file_id']
+      this.fileId = response['file_id'];
 
 
       this.mediaProvider.getUserNameById(this.userId, localStorage.getItem('token'))
@@ -247,7 +247,6 @@ export class SinglePage {
         this.likeCount = Object.keys(favouriteCount).length;
 
         if(this.likeCount === 0) {
-          this.likeInfo = ' , you don´t like this';
           this.liked = false;
         }
 

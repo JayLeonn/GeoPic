@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <img class="title-image" alt="logo" height="40"   src="assets/imgs/geopicText.png">
+      <img class="title-image" alt="logo" height="40" src="assets/imgs/geopicText.png">
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding >
+<ion-content padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
@@ -24,11 +24,6 @@
         {{file?.title}}
       </ion-card-title>
     </ion-card-content>
-  </ion-card>
-
-  <ion-card (click)="showImage()" id="modal" class="hidden">
-    <a href="#" class="closeBtn">&#215;</a>
-    <img id="pic" src='img/original/71_file000132701536.jpg'>
   </ion-card>
 
 </ion-content>

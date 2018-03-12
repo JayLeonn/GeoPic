@@ -133,6 +133,7 @@ export class ProfilePage {
     // empty usercomments and uploads when logging out
     this.userComments = [];
     this.userUploads = [];
+    //this.loggedout = true;
     this.profilePageLoad();
   }
 
@@ -143,6 +144,8 @@ export class ProfilePage {
       console.log(this.userInfo);
       localStorage.setItem('token', response['token']); // add access token for user in the localstorage
       this.navCtrl.parent.select(0); // navigate to homepage
+      this.loginUser.username = '';
+      this.loginUser.password = '';
     }, (error: HttpErrorResponse) => {
       this.status = error.error.message;
       this.loginErrorBoolean = true;

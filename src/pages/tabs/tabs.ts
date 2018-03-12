@@ -13,7 +13,7 @@ export class TabsPage {
   tab1Root = MapPage;
   tab2Root = UploadPage;
   tab3Root = ProfilePage;
-  tab4Root = HomePage;
+  //tab4Root = HomePage;
   constructor() {
 
   }
