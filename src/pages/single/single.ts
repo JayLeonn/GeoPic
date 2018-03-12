@@ -197,7 +197,26 @@ export class SinglePage {
 
     console.log(file_id);
 
+    this.mediaProvider.favouriteThis(file_id, localStorage.getItem('token'))
+      .subscribe( favourite => {
+        this.countFavourites();
+        this.liked = true;
+        console.log(favourite);
+      },(error: HttpErrorResponse) => {
+        this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
+          .subscribe( data => {
+            this.countFavourites();
+            this.liked = false;
+            console.log(data);
+          }, (error: HttpErrorResponse) => {
+            this.countFavourites();
+            console.log(error);
+          });
+        console.log(error);
+      });
 
+
+    /*
     if (this.liked){
       this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
         .subscribe( data => {
@@ -218,7 +237,7 @@ export class SinglePage {
         this.countFavourites();
         console.log(error);
       });
-    }
+    } */
   }
 
   countFavourites () {
