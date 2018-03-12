@@ -76,11 +76,11 @@ export class SinglePage {
     console.log(this.mediaID);
     this.getMedia();
     this.currentUser();
-
   }
 
   getMedia(){
     this.commentsLoaded = false;
+    this.liked = false;
 
     this.mediaProvider.getSingleMedia(this.mediaID).
     subscribe(response => {
@@ -197,10 +197,12 @@ export class SinglePage {
 
     console.log(file_id);
 
+
     if (this.liked){
       this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
         .subscribe( data => {
           this.countFavourites();
+          this.liked = false;
           console.log(data);
         }, (error: HttpErrorResponse) => {
           this.countFavourites();
@@ -210,6 +212,7 @@ export class SinglePage {
     this.mediaProvider.favouriteThis(file_id, localStorage.getItem('token'))
       .subscribe( favourite => {
         this.countFavourites();
+        this.liked = true;
         console.log(favourite);
       },(error: HttpErrorResponse) => {
         this.countFavourites();
@@ -224,11 +227,17 @@ export class SinglePage {
 
         this.likeCount = Object.keys(favouriteCount).length;
 
+        if(this.likeCount === 0) {
+          this.likeInfo = ' , you don´t like this';
+          this.liked = false;
+        }
+
         console.log(favouriteCount);
         console.log(this.userId);
         this.commentsLoaded = true;
         console.log('likes ' + this.likeCount);
 
+        // gets array of likes and checks if current user is among them
           for (let i = 0; i < this.likeCount; i++){
             if (favouriteCount[i].user_id === this.myId) {
               this.likeInfo = ' , you like this';
