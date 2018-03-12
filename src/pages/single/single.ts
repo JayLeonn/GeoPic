@@ -194,26 +194,28 @@ export class SinglePage {
     const file_id = {
       file_id: id
     };
-    this.countFavourites();
-
 
     console.log(file_id);
 
+    if (this.liked){
+      this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
+        .subscribe( data => {
+          this.countFavourites();
+          console.log(data);
+        }, (error: HttpErrorResponse) => {
+          this.countFavourites();
+          console.log(error);
+          });
+    } else {
     this.mediaProvider.favouriteThis(file_id, localStorage.getItem('token'))
       .subscribe( favourite => {
+        this.countFavourites();
         console.log(favourite);
-        this.countFavourites();
       },(error: HttpErrorResponse) => {
-        console.log(error);
         this.countFavourites();
-        this.mediaProvider.deleteFavourite(this.mediaID, localStorage.getItem('token'))
-          .subscribe( data => {
-            console.log(data);
-            this.countFavourites();
-          });
+        console.log(error);
       });
-    this.countFavourites();
-
+    }
   }
 
   countFavourites () {
