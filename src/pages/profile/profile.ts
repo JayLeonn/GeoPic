@@ -146,6 +146,11 @@ export class ProfilePage {
       this.navCtrl.parent.select(0); // navigate to homepage
       this.loginUser.username = '';
       this.loginUser.password = '';
+
+      this.newUser.email = '';
+      this.newUser.full_name = '';
+      this.newUser.password = '';
+      this.newUser.username = '';
     }, (error: HttpErrorResponse) => {
       this.status = error.error.message;
       this.loginErrorBoolean = true;
