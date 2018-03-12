@@ -11,7 +11,7 @@ So say you're going on a vacation to Australia and you'd like to see pictures pe
 [Here's a guide to getting started with ionic.](https://ionicframework.com/getting-started) 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes;
 
-Download the project as a zip, unzip it and then use your terminal or cmd to **/cd/projectlocationhere** to the folder and then write **ionic serve** to run the app on your browser and **ionic cordova run android** to get the app on your android phone
+Download the project as a zip, unzip it and then use your terminal or cmd to **/cd/projectlocationhere** to the folder and first of all write **npm install** to download all the plugins that the application needs! After that write **ionic serve** to run the app on your browser (the browser version might not support all functionalities) and **ionic cordova run android** to get the app on your android phone (on which every function works!)
 After that you can freely make a new account, comment, like, upload and most importantly view any new pictures taken anywhere around the world from where-ever you are!
 
 ### Prerequisites
